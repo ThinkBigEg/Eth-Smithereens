@@ -12,9 +12,14 @@ class App extends Component {
     }
     render() {
         return (
-            <div className="">
+            <div className="container" style={{ padding: "0px", maxWidth: "100%" }}>
                 <Preloader />
-                <Header />
+                <div className="pageContent">
+                    <Header />
+                    <div className="welcomeScreen">
+                        <h1 className="rotate-center">Block Chain Network</h1>
+                    </div>
+                </div>
             </div>
         );
     }

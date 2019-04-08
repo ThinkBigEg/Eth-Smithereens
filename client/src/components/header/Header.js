@@ -2,44 +2,24 @@ import React from "react";
 import logo from "./logo.svg";
 const Header = () => {
     return (
-        <header className="header-area">
-            <div className="main-header-area">
-                <div className="classy-nav-container breakpoint-off">
-                    <div className="container">
-                        <nav className="classy-navbar justify-content-between" id="razoNav">
-                            <a className="nav-brand" href="#">
-                                <img src={logo} alt="" />
-                            </a>
+        <nav className="navbar navbar-expand-sm bg-dark navbar-dark" style={{ justifyContent: "space-around" }}>
+            <a className="navbar-brand" href="#">
+                <img src={logo} alt="logo" style={{ width: "40px" }} />
+            </a>
 
-                            <div className="classy-navbar-toggler">
-                                <span className="navbarToggler">
-                                    <span />
-                                    <span />
-                                    <span />
-                                </span>
-                            </div>
-
-                            <div className="classy-menu">
-                                <div className="classycloseIcon">
-                                    <div className="cross-wrap">
-                                        <span className="top" />
-                                        <span className="bottom" />
-                                    </div>
-                                </div>
-
-                                <div className="classynav">
-                                    <ul id="nav">
-                                        <li>
-                                            <a href="#">Log in</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </header>
+            <ul className="navbar-nav">
+                <li className="nav-item">
+                    <a className="nav-link" href="#">
+                        Login
+                    </a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" href="#">
+                        Register
+                    </a>
+                </li>
+            </ul>
+        </nav>
     );
 };
 
