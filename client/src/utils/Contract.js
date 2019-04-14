@@ -20,3 +20,9 @@ export const UserContract = async address => {
   const deployedNetwork = UserFactoryJSON.networks[networkId];
   return await new web3.eth.Contract(UserJSON.abi, deployedNetwork && address);
 };
+
+export const PostContract = async address => {
+  const networkId = await web3.eth.net.getId();
+  const deployedNetwork = PostFactoryJSON.networks[networkId];
+  return await new web3.eth.Contract(PostJSON.abi, deployedNetwork && address);
+};
