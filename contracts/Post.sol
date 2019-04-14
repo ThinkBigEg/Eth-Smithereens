@@ -1,23 +1,24 @@
 pragma solidity ^0.5.0;
-
+import "./User";
 contract Post {
 
-    address public creator;
+    User owner;
     string public text;
     uint256 public timestamp;
 
     constructor (address user_contract_address,string memory post_text) public {
-        creator = user_contract_address;
         text = post_text;
         timestamp = now;
+        owner = User(user_contract_address);
     }
 
-    function getPost() public view returns(address,string memory,uint256){
+    function getPost() public view returns(address,string memory,string memory,uint256,address[] memory){
         return (
-        creator,
+        address(owner),
+        owner.name(),
         text,
-        timestamp
-        );
-    }
+        timestamp,
+        comments
+            );
 
 }
