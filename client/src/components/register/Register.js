@@ -16,6 +16,8 @@ export default class Register extends Component {
     }
     submitForm() {
         // call your submit form with this.state.email & this.state.password
+
+        this.setState({email:"",password:""})
     }
     render() {
         return (

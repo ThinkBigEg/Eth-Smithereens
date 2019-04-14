@@ -9,10 +9,18 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            isLogin: true
+            isLogin: true,
+            posts: []
         };
     }
-
+    componentDidMount() {
+        let posts = [{ content: "post number 1 test test", author: "karim", date: "12-10-1997" }, 
+        { content: "this is my second post test", author: "omar", date: "6-10-2007" }, 
+        { content: "this is not my post test brdo ;D", author: "amr", date: "2-1-1897" }, 
+        { content: "ngrb mara kman", author: "farouk", date: "30-12-1007" }];
+        // get posts from your backend
+        this.setState({ posts });
+    }
     render() {
         if (!this.state.isLogin)
             return (
@@ -24,7 +32,7 @@ class App extends Component {
         return (
             <div className="container" style={{ padding: "0px", maxWidth: "100%" }}>
                 <Header logged={this.state.isLogin} />
-                <Wall />
+                <Wall posts={this.state.posts} />
             </div>
         );
     }
