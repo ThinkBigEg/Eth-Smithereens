@@ -1,5 +1,5 @@
 pragma solidity ^0.5.0;
-import "./User";
+import "./User.sol";
 contract Post {
 
     User owner;
@@ -12,13 +12,13 @@ contract Post {
         owner = User(user_contract_address);
     }
 
-    function getPost() public view returns(address,string memory,string memory,uint256,address[] memory){
+    function getPost() public view returns(address,string memory,string memory,uint256){
         return (
         address(owner),
         owner.name(),
         text,
-        timestamp,
-        comments
+        timestamp
             );
+    }
 
 }
