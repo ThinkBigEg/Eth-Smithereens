@@ -3,16 +3,11 @@ import logo from "./logo.svg";
 const Header = props => {
     return (
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark" style={{ justifyContent: "space-around" }}>
-            <a className="navbar-brand" href="http://localhost:3000">
+            <div className="navbar-brand" >
                 <img src={logo} alt="logo" style={{ width: "40px" }} />
-            </a>
+            </div>
             {!props.logged && (
                 <ul className="navbar-nav">
-                    <li className="nav-item">
-                        <div className="nav-link">
-                            Login
-                        </div>
-                    </li>
                     <li className="nav-item">
                         <div onClick={()=>props.changeToRegister()} className="nav-link">
                             Register

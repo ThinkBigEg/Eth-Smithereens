@@ -6,21 +6,16 @@ export default class Welcome extends Component{
         super();
         this.state = {
             register:false,
-            login:false
         }
     }
     changeToRegister(){
-        this.setState({register:true,login:false})
-    }
-    changeToLogin(){ // not impelemented yet
-        this.setState({register:false,login:true})
+        this.setState({register:true})
     }
     render()   {
         return (
         <div className="pageContent">
             <Header logged={this.props.logged} 
-            changeRegister = {this.changeToRegister.bind(this)}
-            changeToLogin  = {this.changeToLogin.bind(this)}
+            changeToRegister = {this.changeToRegister.bind(this)}
             />
             {
                 // if he clicked on register 
