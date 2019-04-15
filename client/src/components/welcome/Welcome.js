@@ -19,7 +19,7 @@ export default class Welcome extends Component{
             />
             {
                 // if he clicked on register 
-                this.state.register && <Register />
+                this.state.register && <Register register={this.props.register}/>
             }
             {
                 !this.state.register &&

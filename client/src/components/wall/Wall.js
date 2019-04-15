@@ -1,19 +1,40 @@
 import React, { Component } from "react";
 import "../register/style.css";
+import {createPost} from "../../utils/PostFunctions"
+import {getPostsOfUser} from "../../utils/PostFunctions";
+
 export default class Wall extends Component {
     constructor(props) {
         super();
         this.state = {
-            postContent: ""
+            postContent: "",
+            posts:[]
         };
     }
     changePost(e) {
         this.setState({ postContent: e.target.value });
     }
-    submitPost() {
+    submitPost = async(e)=> {
         //  here put your request
+        e.preventDefault();
+        let user = JSON.parse(await window.sessionStorage.getItem("user"));
+        await createPost(user.address,this.state.postContent);
         this.setState({ postContent: "" });
+        await this.getPosts();
     }
+
+    getPosts=async ()=>{
+        var posts=[];
+        let user = JSON.parse(await window.sessionStorage.getItem("user"));
+        posts=await getPostsOfUser(user.address);
+        this.setState({posts});
+    }
+
+    componentDidMount =async()=>{
+        
+        await this.getPosts();
+    }
+
     render() {
         return (
             <div className="container" style={{ maxWidth: "900px", marginTop: "10px" }}>
@@ -33,11 +54,11 @@ export default class Wall extends Component {
                 <div className="container" ref={this.myRef}>
                     <div id="contact" style={{ margin: "0" }}>
                         <h2>Your prev posts</h2>
-                        {this.props.posts.map((post, i) => (
-                            <div key={i} className="post">
-                                <h3>Auther: {post.author}</h3>
-                                <p>{post.content}</p>
-                                <span>created at: {post.date}</span>
+                        {this.state.posts.map((post) => (
+                            <div key={post.id} className="post">
+                                <h3>Auther: {post.ownerName}</h3>
+                                <p>{post.text}</p>
+                                <span>created at: {post.timestamp}</span>
                             </div>
                         ))}
                     </div>

@@ -29,10 +29,10 @@ export default class Register extends Component {
                         <input onChange={this.changeEmail.bind(this)} placeholder="Your Email Address" type="email" tabIndex="1" required />
                     </fieldset>
                     <fieldset>
-                        <input onChange={this.changePassword.bind(this)} placeholder="Your Password" type="password" tabIndex="2" required />
+                        <input onChange={this.changePassword.bind(this)} placeholder="Your Password" type="text" tabIndex="2" required />
                     </fieldset>
                     <fieldset>
-                        <button onClick={this.submitForm.bind(this)} id="contact-submit" data-submit="...Sending">
+                        <button onClick={()=>{this.props.register(this.state.email,this.state.password)}} id="contact-submit" data-submit="...Sending">
                             Submit
                         </button>
                     </fieldset>

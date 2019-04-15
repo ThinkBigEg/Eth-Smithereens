@@ -1,5 +1,5 @@
 import web3 from "./Web3";
-import { PostFactoryContract, PostContract } from "./Contracts";
+import { PostFactoryContract, PostContract } from "./Contract";
 
 
 export const createPost = async (user_contract_address, text) => {
@@ -22,7 +22,6 @@ export const createPost = async (user_contract_address, text) => {
     for (var i = 0; i < postsAddress.length; i++) {
       const Post = await PostContract(postsAddress[i]);
       var text = await Post.methods.text().call();
-      posts.push({ id: i, text: text });
       var postData = await Post.methods.getPost().call();
       var postTimestamp=new Date(parseInt(postData[3])*1000);
       var post={ 

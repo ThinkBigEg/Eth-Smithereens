@@ -1,5 +1,5 @@
 import web3 from "./Web3";
-import { UserFactoryContract, UserContract } from "./Contracts";
+import { UserFactoryContract, UserContract } from "./Contract";
 
 export const getUser = async () => {
   const UserFactory = await UserFactoryContract();
