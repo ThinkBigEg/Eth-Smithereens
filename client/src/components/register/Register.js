@@ -4,20 +4,20 @@ export default class Register extends Component {
     constructor() {
         super();
         this.state = {
-            email: "",
-            password: ""
+            name: "",
+            email: ""
         };
+    }
+    changeName(e){
+        this.setState({name:e.target.value})
     }
     changeEmail(e){
         this.setState({email:e.target.value})
     }
-    changePassword(e){
-        this.setState({password:e.target.value})
-    }
     submitForm() {
-        // call your submit form with this.state.email & this.state.password
+        // call your submit form with this.state.name & this.state.email
 
-        this.setState({email:"",password:""})
+        this.setState({name:"",email:""})
     }
     render() {
         return (
@@ -26,13 +26,13 @@ export default class Register extends Component {
                     <h3>BSN Register Form</h3>
 
                     <fieldset>
-                        <input onChange={this.changeEmail.bind(this)} placeholder="Your Email Address" type="email" tabIndex="1" required />
+                        <input onChange={this.changeName.bind(this)} placeholder="Your name Address" type="text" tabIndex="1" required />
                     </fieldset>
                     <fieldset>
-                        <input onChange={this.changePassword.bind(this)} placeholder="Your Password" type="text" tabIndex="2" required />
+                        <input onChange={this.changeEmail.bind(this)} placeholder="Your email" type="text" tabIndex="2" required />
                     </fieldset>
                     <fieldset>
-                        <button onClick={()=>{this.props.register(this.state.email,this.state.password)}} id="contact-submit" data-submit="...Sending">
+                        <button onClick={()=>{this.props.register(this.state.name,this.state.email)}} id="contact-submit" data-submit="...Sending">
                             Submit
                         </button>
                     </fieldset>
