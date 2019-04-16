@@ -14,10 +14,11 @@ class App extends Component {
         };
     }
     componentDidMount() {
-        let posts = [{ content: "post number 1 test test", author: "karim", date: "12-10-1997" }, 
-        { content: "this is my second post test", author: "omar", date: "6-10-2007" }, 
-        { content: "this is not my post test brdo ;D", author: "amr", date: "2-1-1897" }, 
-        { content: "ngrb mara kman", author: "farouk", date: "30-12-1007" }];
+        let posts = [{ 
+        content: "post number 1 test test", author: "karim", date: "12-10-1997" , authorImg:"http://placehold.it/64x64"}, 
+        { content: "this is my second post test", author: "omar", date: "6-10-2007",authorImg:"http://placehold.it/64x64" }, 
+        { content: "this is not my post test brdo ;D", author: "amr", date: "2-1-1897" ,authorImg:"http://placehold.it/64x64"}, 
+        { content: "ngrb mara kman", author: "farouk", date: "30-12-1007",authorImg:"http://placehold.it/64x64" }];
         // get posts from your backend
         this.setState({ posts });
     }

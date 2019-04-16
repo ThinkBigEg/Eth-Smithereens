@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../register/style.css";
+import "./style.css";
 export default class Wall extends Component {
     constructor(props) {
         super();
@@ -16,30 +16,65 @@ export default class Wall extends Component {
     }
     render() {
         return (
-            <div className="container" style={{ maxWidth: "900px", marginTop: "10px" }}>
-                <div className="container" ref={this.myRef}>
-                    <div id="contact" style={{ margin: "0" }}>
-                        <h3 style={{ textAlign: "left" }}>Post</h3>
-                        <fieldset>
-                            <textarea onChange={this.changePost.bind(this)} placeholder="What's up?" type="text" tabIndex="1" />
-                        </fieldset>
-                        <fieldset style={{ textAlign: "right" }}>
-                            <button onClick={this.submitPost.bind(this)} id="contact-submit" style={{ maxWidth: "min-content" }} data-submit="...Sending">
-                                Submit
-                            </button>
-                        </fieldset>
-                    </div>
-                </div>
-                <div className="container" ref={this.myRef}>
-                    <div id="contact" style={{ margin: "0" }}>
-                        <h2>Your prev posts</h2>
-                        {this.props.posts.map((post, i) => (
-                            <div key={i} className="post">
-                                <h3>Auther: {post.author}</h3>
-                                <p>{post.content}</p>
-                                <span>created at: {post.date}</span>
+            <div className="container">
+                <div className="row">
+                    <div className="col-sm-3" />
+                    <div className="col-sm-6">
+                        <div className="panel panel-info">
+                            <div className="panel-heading">
+                                <div className="media">
+                                    <a className="media-left" href="#fake">
+                                        <img alt="" className="media-object img-rounded" src="http://placehold.it/35x35" />
+                                    </a>
+                                    <div className="media-body">
+                                        <div className="form-group has-feedback">
+                                            <label className="control-label sr-only" htmlFor="inputSuccess5">
+                                                Hidden label
+                                            </label>
+                                            <input type="text" className="form-control" id="search2" aria-describedby="search" />
+                                            <button className="form-control-feedback" onClick={this.submitPost.bind(this)} style={{ cursor: "pointer" }}>
+                                                <span className="glyphicon glyphicon-share" aria-hidden="true" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        ))}
+                            {this.props.posts.map((post, i) => (
+                                <div className="panel-body" key={i}>
+                                    <div className="media">
+                                        <a className="media-left" href="#fake">
+                                            <img alt="" className="media-object img-rounded" src={post.authorImg} />
+                                        </a>
+                                        <div className="media-body">
+                                            <h4 className="media-heading">{post.author}</h4>
+                                            <p>{post.content}</p>
+                                            <ul className="nav nav-pills nav-pills-custom">
+                                                <li>
+                                                    <a href="#">
+                                                        <span className="glyphicon glyphicon-share-alt" />
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <span className="glyphicon glyphicon-retweet" />
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <span className="glyphicon glyphicon-star" />
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <span className="glyphicon glyphicon-option-horizontal" />
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
