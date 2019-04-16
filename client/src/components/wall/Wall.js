@@ -12,7 +12,6 @@ export default class Wall extends Component {
     }
     submitPost() {
         //  here put your request
-        this.setState({ postContent: "" });
     }
     render() {
         return (
@@ -27,16 +26,19 @@ export default class Wall extends Component {
                                         <img alt="" className="media-object img-rounded" src="http://placehold.it/35x35" />
                                     </a>
                                     <div className="media-body">
-                                        <div className="form-group has-feedback">
+                                        <div className="">
                                             <label className="control-label sr-only" htmlFor="inputSuccess5">
                                                 Hidden label
                                             </label>
-                                            <input type="text" className="form-control" id="search2" aria-describedby="search" />
-                                            <button className="form-control-feedback" onClick={this.submitPost.bind(this)} style={{ cursor: "pointer" }}>
-                                                <span className="glyphicon glyphicon-share" aria-hidden="true" />
-                                            </button>
+                                            <input type="text" className="form-control" id="search2" onChange={this.changePost.bind(this)} aria-describedby="search" />
+                                            <li onClick={this.submitPost.bind(this)}>
+                                                    <a href="#">
+                                                        <span className="glyphicon glyphicon-share-alt" />
+                                                    </a>
+                                                </li>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             {this.props.posts.map((post, i) => (

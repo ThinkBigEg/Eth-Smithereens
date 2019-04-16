@@ -8,12 +8,12 @@ const Header = props => {
                     <div className="navbar-brand" style={{ marginLeft: "11em" }}>
                         <img src={logo} alt="logo" style={{ width: "40px", margin: "-11px" }} />
                     </div>
-                    <ul class="nav navbar-nav" style={{ float: "right", marginRight: "11em" }}>
+                    <ul className="nav navbar-nav" style={{ float: "right", marginRight: "11em" }}>
                         {!props.logged && (
-                            <li class="active">
+                            <li className="active">
                                 <a href="#fake">
                                     <div onClick={() => props.changeToRegister()} className="nav-link">
-                                        <span class="glyphicon glyphicon-home" /> Register
+                                        <span className="glyphicon glyphicon-home" /> Register
                                     </div>
                                 </a>
                             </li>
@@ -21,7 +21,7 @@ const Header = props => {
                         {props.logged && (
                             <li className="active">
                                 <a href="#fake">
-                                    <div classNameName="nav-link">
+                                    <div className="nav-link">
                                         <span className="glyphicon glyphicon-bell" /> profile
                                     </div>
                                 </a>
