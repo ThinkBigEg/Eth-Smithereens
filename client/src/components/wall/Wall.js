@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import ProfileCard from "./ProfileCard";
+import FollowingCard from "./FollowingCard";
 import "./style.css";
 export default class Wall extends Component {
     constructor(props) {
@@ -78,6 +79,7 @@ export default class Wall extends Component {
                         ))}
                     </div>
                 </div>
+                <FollowingCard />
             </Fragment>
         );
     }
