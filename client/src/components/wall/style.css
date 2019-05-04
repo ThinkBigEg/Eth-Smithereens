@@ -53,3 +53,7 @@ div.panel-heading {
 .panel-info {
     border: 1px lightgrey solid;
 }
+
+.commentPost{
+    margin-left: 80px;
+}

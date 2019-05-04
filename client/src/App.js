@@ -14,20 +14,22 @@ class App extends Component {
             tweets_num: 0,
             followers_num: 0,
             following_num: 0,
-            trends: []
+            trends: [],
+            loggedUser:{} // it should be used in comments and posts but we will make it later
         };
     }
     componentDidMount() {
         let posts = [
             {
+                id:'1',
                 content: "post number 1 test test",
                 author: "karim",
                 date: "12-10-1997",
                 authorImg: "http://placehold.it/64x64"
             },
-            { content: "this is my second post test", author: "omar", date: "6-10-2007", authorImg: "http://placehold.it/64x64" },
-            { content: "this is not my post test brdo ;D", author: "amr", date: "2-1-1897", authorImg: "http://placehold.it/64x64" },
-            { content: "ngrb mara kman", author: "farouk", date: "30-12-1007", authorImg: "http://placehold.it/64x64" }
+            { id:'2',content: "this is my second post test", author: "omar", date: "6-10-2007", authorImg: "http://placehold.it/64x64" },
+            { id:'3',content: "this is not my post test brdo ;D", author: "amr", date: "2-1-1897", authorImg: "http://placehold.it/64x64" },
+            { id:'4',content: "ngrb mara kman", author: "farouk", date: "30-12-1007", authorImg: "http://placehold.it/64x64" }
         ];
         // get posts from your backend
 
@@ -36,6 +38,7 @@ class App extends Component {
             following_num = 520,
             trends = ["graduation of FCI 2019", "Sama el masry", "m4 3arf eh tany"];
         // get the data also
+
 
         this.setState({ posts, tweets_num, followers_num, following_num, trends });
     }
