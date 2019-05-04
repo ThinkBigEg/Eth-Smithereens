@@ -6,6 +6,10 @@ contract Post {
     string public text;
     uint256 public timestamp;
 
+    uint public totalVotes = 0;
+    uint public totalVotesValue = 0;
+    mapping(address => uint) public votes;
+
     constructor (address user_contract_address,string memory post_text) public {
         text = post_text;
         timestamp = now;
@@ -19,6 +23,15 @@ contract Post {
         text,
         timestamp
             );
+    }
+
+    function vote(address userContractAddress,uint voteValue) public {
+
+        require(votes[userContractAddress]!=0, "you already voted");
+        votes[userContractAddress] = voteValue;
+        totalVotesValue += voteValue;
+        totalVotes++;
+
     }
 
 }
