@@ -6,7 +6,8 @@ import Preloader from "./components/preloader/Preloader";
 import Header from "./components/header/Header";
 import Welcome from "./components/welcome/Welcome";
 import Wall from "./components/wall/Wall";
-import {registerNewUser,getUser,checkUserExists} from "./utils/UserFunctions"
+import Web3Wrapper from "./utils/Web3Wrapper";
+import User from "./models/User";
 class App extends Component {
 
 
@@ -15,19 +16,22 @@ class App extends Component {
         this.state = {
             isLogin: false,
             posts: [],
-            user:{}
+            user:{},
+            web3Wrapper:{}
         };
     }
 
     register = async (name,email)=>{
-        await registerNewUser(name,email);
+        var UserM = new UserM(this.state.web3Wrapper);
+        await UserM.registerNewUser(name,email);
         var user=await this.initUserData();
         this.setState({user,isLogin: true});
 
     }
 
     initUserData = async ()=>{
-        var data = await getUser();
+        var UserM = new UserM(this.state.web3Wrapper);
+        var data = await UserM.getUser();
             let userObj = {
             name: data[0],
             email: data[1],
@@ -42,7 +46,11 @@ class App extends Component {
 
     componentDidMount = async () =>{
 
-        var check = await checkUserExists();
+        var web3Wrapper = new Web3Wrapper();
+        await web3Wrapper.initializeContracts();
+        this.setState({web3Wrapper});
+        var UserM = new UserM(web3Wrapper);
+        var check = await UserM.checkUserExists();
         
         if (check) {
             await this.initUserData();

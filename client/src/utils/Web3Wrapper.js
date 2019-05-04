@@ -1,6 +1,8 @@
+import web3 from "./Web3";
+import {contracts_json,initialize} from "./Web3Wrapper.config";
 class Web3Wrapper {
 
-  constructor(web3, contracts_json) {
+  constructor() {
 
     this.contractsJSON = [];
 
@@ -12,21 +14,20 @@ class Web3Wrapper {
     this.contracts = [];
   }
 
-  async initializeContracts(contracts_names) {
-
+  async initializeContracts() {
 
     this.accounts = await this.web3.eth.getAccounts();
 
-    for (var i = 0; i < contracts_names.length; i++) {
+    for (var i = 0; i < initialize.length; i++) {
 
       var contract;
       const networkId = await this.web3.eth.net.getId();
-      const deployedNetwork = this.contractsJSON[contracts_names[i]].networks[networkId];
+      const deployedNetwork = this.contractsJSON[initialize[i]].networks[networkId];
       contract = await new this.web3.eth.Contract(
-        this.contractsJSON[contracts_names[i]].abi,
+        this.contractsJSON[initialize[i]].abi,
         deployedNetwork && deployedNetwork.address);
 
-      this.contracts[contracts_names[i]] = contract;
+      this.contracts[initialize[i]] = contract;
 
 
     }
