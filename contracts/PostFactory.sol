@@ -7,6 +7,10 @@ contract PostFactory {
     mapping(address => address[]) public posts;
     // need userfactory to check if user exits or not before create post
     UserFactory private userFactory;
+
+    uint public totalVotes = 0;
+    uint public totalVotesValue = 0;
+    mapping(address => uint) public votes;
     
     constructor(address user_factory_address)public{
         userFactory=UserFactory(user_factory_address);
@@ -22,5 +26,15 @@ contract PostFactory {
     function getPostsOfUser(address user_contract_address) public view returns(address[] memory){
         return posts[user_contract_address];
     }
+
+    function vote(address userContractAddress,uint voteValue) public {
+
+        require(votes[userContractAddress]!=0, "you already voted");
+        votes[userContractAddress] = voteValue;
+        totalVotesValue += voteValue;
+        totalVotes++;
+
+    }
+    
     
 }

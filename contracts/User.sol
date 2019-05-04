@@ -5,6 +5,8 @@ contract User {
     address public walletAddress;
     string public name;
     string public email;
+
+    address[] public followers;
     mapping(address => uint256) public followersIndex;
 
     constructor (address wallet_address,string memory user_name,string memory user_email) public {
@@ -13,21 +15,37 @@ contract User {
         email = user_email;
     }
 
-    function getData() public view returns(string memory, string memory,address){
+    function getData() public view returns(string memory, string memory,address,uint){
         return (
             name,
             email,
-            address(this)
+            address(this),
+            followers.length
             );
     }
     
     function setName(string memory new_name) public{
-        require(walletAddress==msg.sender,"You are not the owner of the contract");
         name = new_name;
     }
     
     function setEmail(string memory new_mail) public{
-        require(walletAddress==msg.sender,"You are not the owner of the contract");
+        
         email = new_mail;
     }
+
+    function follow(address userAddress) public {
+        uint index = followers.push(userAddress);
+        followersIndex[userAddress] = index;
+    }
+    
+    function unfollow (address userAddress) public  {
+        delete followers[followersIndex[userAddress]-1];
+        followersIndex[userAddress] = 0;
+    }
+
+    function getFollowers () public view returns(address[] memory) {
+        return followers;
+    }
+
+    
 }
