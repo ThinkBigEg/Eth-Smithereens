@@ -35,21 +35,20 @@ export default class Wall extends Component {
 
     getPosts=async ()=>{
         var posts=[];
-        let user = JSON.parse(await window.sessionStorage.getItem("user"));
-        posts=await getPostsOfUser(user.address);
+        posts=await getPostsOfUser(this.props.user.address);
         this.setState({posts});
     }
 
     componentDidMount =async()=>{
         
-        await this.getPosts();
+       var posts= await this.getPosts();
+       this.setState({posts});
     }
 
     render() {
-        const { tweets_num, followers_num, following_num, trends } = this.props;
         return (
             <Fragment>
-                <ProfileCard tweets={tweets_num} followers={followers_num} following={following_num} trends={trends} />
+                <ProfileCard tweets="10" followers="10" following={this.props.user.following}/>
                 <div className="col-sm-6">
                     <div className="panel panel-info">
                         <div className="panel-heading">
@@ -104,6 +103,31 @@ export default class Wall extends Component {
                                             </li>
                                         </ul>
                                     </div>
+                                </div>
+                                <div>
+                                {post.comments.map((comment,i)=>(
+                                    <div className="commentPost">
+                                    <div className="media">
+                                        <a className="media-left" href="#fake">
+                                            <img alt="" className="media-object img-rounded" src="http://placehold.it/35x35" />
+                                        </a>
+                                        <div className="media-body">
+                                        <h4 className="media-heading">{comment.ownerName}</h4>
+                                            <div className="">
+                                                <label className="control-label sr-only" htmlFor="inputSuccess5">
+                                                    Hidden label
+                                                </label>
+                                                <p>{comment.text}</p>
+                                                {/* <li onClick={this.submitComment.bind(this,post.id)}>
+                                                    <a href="#">
+                                                        <span className="glyphicon glyphicon-share-alt" />
+                                                    </a>
+                                                </li> */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                ))}
                                 </div>
                                 <div className="commentPost">
                                     <div className="media">

@@ -86,7 +86,7 @@ class App extends Component {
         return (
             <div className="container" style={{ padding: "0px", maxWidth: "100%" }}>
                 <Header logged={this.state.isLogin} />
-                <Wall posts={this.state.posts} user={this.state.user}/>
+                <Wall user={this.state.user}/>
             </div>
         );
     }

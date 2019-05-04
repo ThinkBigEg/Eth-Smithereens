@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ProfileCard = (props) => {
-    const { tweets, followers, following, trends } = props;
+    const { tweets, followers, following } = props;
     return(
         <div className="col-sm-3">
 			<div className="panel panel-default">
@@ -40,14 +40,14 @@ const ProfileCard = (props) => {
 					</h3>
 				</div>
 
-				<div className="panel-body">
+				{/* <div className="panel-body">
 					<ul className="list-unstyled">
                         {trends.map((trend,i)=>(
                             <li key={i}><a href="#">#{trend}</a></li>
                         ))}
 						
 					</ul>
-				</div>
+				</div> */}
 			</div>
 		</div>
     );
