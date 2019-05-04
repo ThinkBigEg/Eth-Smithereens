@@ -1,11 +1,11 @@
 
 import React, { Component,Fragment } from "react";
 import "../register/style.css";
-import {createPost} from "../../utils/PostFunctions"
-import {getPostsOfUser} from "../../utils/PostFunctions";
 import ProfileCard from "./ProfileCard";
 import FollowingCard from "./FollowingCard";
 import "./style.css";
+import Web3Wrapper from "../../utils/Web3Wrapper";
+import Post from "../../models/Post";
 export default class Wall extends Component {
     constructor(props) {
         super();
@@ -13,6 +13,7 @@ export default class Wall extends Component {
             postContent: "",
             posts:[],
             commentContent:'',
+            web3Wrapper:{}
         };
     }
     changePost(e) {
@@ -22,7 +23,8 @@ export default class Wall extends Component {
         //  here put your request
         e.preventDefault();
         let user = JSON.parse(await window.sessionStorage.getItem("user"));
-        await createPost(user.address,this.state.postContent);
+        var PostM = new Post(this.state.web3Wrapper);
+        await PostM.createPost(user.address,this.state.postContent);
         this.setState({ postContent: "" });
         await this.getPosts();
     }
@@ -35,14 +37,17 @@ export default class Wall extends Component {
 
     getPosts=async ()=>{
         var posts=[];
-        posts=await getPostsOfUser(this.props.user.address);
+        var PostM = new Post(this.state.web3Wrapper);
+        posts=await PostM.getPostsOfUser(this.props.user.address);
         this.setState({posts});
     }
 
     componentDidMount =async()=>{
-        
-       var posts= await this.getPosts();
-       this.setState({posts});
+
+        var web3Wrapper = new Web3Wrapper();
+        this.setState({web3Wrapper});
+        var posts= await this.getPosts();
+        this.setState({posts});
     }
 
     render() {
@@ -105,7 +110,7 @@ export default class Wall extends Component {
                                     </div>
                                 </div>
                                 <div>
-                                {post.comments.map((comment,i)=>(
+                                {/* {post.comments.map((comment,i)=>(
                                     <div className="commentPost">
                                     <div className="media">
                                         <a className="media-left" href="#fake">
@@ -117,17 +122,17 @@ export default class Wall extends Component {
                                                 <label className="control-label sr-only" htmlFor="inputSuccess5">
                                                     Hidden label
                                                 </label>
-                                                <p>{comment.text}</p>
+                                                <p>{comment.text}</p> */}
                                                 {/* <li onClick={this.submitComment.bind(this,post.id)}>
                                                     <a href="#">
                                                         <span className="glyphicon glyphicon-share-alt" />
                                                     </a>
                                                 </li> */}
-                                            </div>
+                                            {/* </div>
                                         </div>
                                     </div>
                                 </div>
-                                ))}
+                                ))} */}
                                 </div>
                                 <div className="commentPost">
                                     <div className="media">
