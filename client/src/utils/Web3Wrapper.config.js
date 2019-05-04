@@ -4,6 +4,6 @@ import UserFactoryJSON from "../contracts/UserFactory";
 import UserJSON from "../contracts/User";
 import CommentJSON from "../contracts/Comment.json";
 
-export const contracts_json = [UserFactoryJSON, PostFactoryJSON, UserJSON, CommentJSON]
+export const contracts_json = [UserFactoryJSON, PostFactoryJSON, UserJSON, CommentJSON,PostJSON];
 
 export const initialize = ["UserFactory", "PostFactory"];

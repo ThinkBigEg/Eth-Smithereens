@@ -10,6 +10,7 @@ export default class Wall extends Component {
     constructor(props) {
         super();
         this.state = {
+            isLoading:true,
             postContent: "",
             posts:[],
             commentContent:'',
@@ -39,21 +40,24 @@ export default class Wall extends Component {
         var posts=[];
         var PostM = new Post(this.state.web3Wrapper);
         posts=await PostM.getPostsOfUser(this.props.user.address);
-        this.setState({posts});
+        this.setState({posts,isLoading:false});
     }
 
     componentDidMount =async()=>{
 
         var web3Wrapper = new Web3Wrapper();
+        await web3Wrapper.initializeContracts();
         this.setState({web3Wrapper});
-        var posts= await this.getPosts();
-        this.setState({posts});
+        await this.getPosts();
+
     }
 
     render() {
         return (
-            <Fragment>
-                <ProfileCard tweets="10" followers="10" following={this.props.user.following}/>
+
+           <Fragment>
+                
+                <ProfileCard tweets="10" followers="10" following="10"/>
                 <div className="col-sm-6">
                     <div className="panel panel-info">
                         <div className="panel-heading">
@@ -76,7 +80,7 @@ export default class Wall extends Component {
                                 </div>
                             </div>
                         </div>
-                        {this.props.posts.map((post, i) => (
+                        {!this.state.isLoading&&this.state.posts.map((post, i) => (
                             <div className="panel-body" key={i}>
                                 <div className="media">
                                     <a className="media-left" href="#fake">
@@ -158,8 +162,12 @@ export default class Wall extends Component {
                         ))}
                     </div>
                 </div>
+                
                 <FollowingCard />
+                
             </Fragment>
+                        
+
         );
     }
 }

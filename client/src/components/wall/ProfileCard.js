@@ -33,22 +33,22 @@ const ProfileCard = (props) => {
 				</div>
 			</div>
 
-			<div className="panel panel-default panel-custom">
+			{/* <div className="panel panel-default panel-custom">
 				<div className="panel-heading">
 					<h3 className="panel-title">
 						Trends
 					</h3>
 				</div>
 
-				{/* <div className="panel-body">
+				<div className="panel-body">
 					<ul className="list-unstyled">
                         {trends.map((trend,i)=>(
                             <li key={i}><a href="#">#{trend}</a></li>
                         ))}
 						
 					</ul>
-				</div> */}
-			</div>
+				</div>
+			</div> */}
 		</div>
     );
 }

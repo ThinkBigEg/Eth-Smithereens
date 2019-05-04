@@ -1,24 +1,26 @@
 import React, { Component } from "react";
+import Web3Wrapper from "../../utils/Web3Wrapper";
+import User from "../../models/User";
 
 
 export default class FollowingCard extends Component {
     constructor(props){
         super();
         this.state ={
-            users:[]
+            isLoading:true,
+            users:[],
+            web3Wrapper:{}
         }
     }
     followUser(id) {
         console.log("ddddddd",id);
     }
-    componentDidMount(){
-        //get your users from backend
-        let users = [
-            {name:'karim mokhtar',id:1},
-            {name:'omar khaled',id:2},
-            {name:'amr alaa',id:3},
-            {name:'mahmoud farouk',id:4},
-        ];
+    componentDidMount=async()=>{
+        var web3Wrapper = new Web3Wrapper();
+        await web3Wrapper.initializeContracts();
+        this.setState({web3Wrapper});
+        var UserM = new User(web3Wrapper);
+        var users = await UserM.getUsers();
         this.setState({users});
     }
     render() {
@@ -29,7 +31,7 @@ export default class FollowingCard extends Component {
                         <h3 className="panel-title">Who to follow</h3>
                     </div>
                     <div className="panel-body">
-                        {this.state.users.map((user,i)=>(
+                        {!this.setState.isLoading&&this.state.users.map((user,i)=>(
                             <div className="media" key={i}>
                                 <div className="media-left">
                                     <img src="http://placehold.it/32x32" alt="" className="media-object img-rounded" />

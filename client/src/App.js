@@ -8,6 +8,7 @@ import Welcome from "./components/welcome/Welcome";
 import Wall from "./components/wall/Wall";
 import Web3Wrapper from "./utils/Web3Wrapper";
 import User from "./models/User";
+import { userInfo } from "os";
 class App extends Component {
 
 
@@ -22,7 +23,7 @@ class App extends Component {
     }
 
     register = async (name,email)=>{
-        var UserM = new UserM(this.state.web3Wrapper);
+        var UserM = new User(this.state.web3Wrapper);
         await UserM.registerNewUser(name,email);
         var user=await this.initUserData();
         this.setState({user,isLogin: true});
@@ -30,15 +31,11 @@ class App extends Component {
     }
 
     initUserData = async ()=>{
-        var UserM = new UserM(this.state.web3Wrapper);
-        var data = await UserM.getUser();
-            let userObj = {
-            name: data[0],
-            email: data[1],
-            address: data[2]
-            };
-            await window.sessionStorage.setItem("user", JSON.stringify(userObj));
-            return userObj;
+        var UserM = new User(this.state.web3Wrapper);
+        var user = await UserM.getUser();
+
+        await window.sessionStorage.setItem("user", JSON.stringify(user));
+        return user;
             
     }
 
@@ -49,7 +46,7 @@ class App extends Component {
         var web3Wrapper = new Web3Wrapper();
         await web3Wrapper.initializeContracts();
         this.setState({web3Wrapper});
-        var UserM = new UserM(web3Wrapper);
+        var UserM = new User(web3Wrapper);
         var check = await UserM.checkUserExists();
         
         if (check) {
@@ -87,8 +84,8 @@ class App extends Component {
         if (!this.state.isLogin)
             return (
                 <div className="container" style={{ padding: "0px", maxWidth: "100%" }}>
-                    <Preloader />
-                    <Welcome logged={this.state.isLogin} />
+                    {/* <Preloader /> */}
+                    <Welcome logged={this.state.isLogin} register={this.register}/>
                 </div>
             );
         return (
