@@ -18,12 +18,13 @@ contract Post {
         owner = User(user_contract_address);
     }
 
-    function getPost() public view returns(address,string memory,string memory,uint256){
+    function getPost() public view returns(address,string memory,string memory,uint256,address[] memory){
         return (
         address(owner),
         owner.name(),
         text,
-        timestamp
+        timestamp,
+        comments
             );
     }
 
