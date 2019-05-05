@@ -8,7 +8,6 @@ import Welcome from "./components/welcome/Welcome";
 import Wall from "./components/wall/Wall";
 import Web3Wrapper from "./utils/Web3Wrapper";
 import User from "./models/User";
-import { userInfo } from "os";
 class App extends Component {
 
 
@@ -24,8 +23,11 @@ class App extends Component {
 
     register = async (name,email)=>{
         var UserM = new User(this.state.web3Wrapper);
+        console.log("fuck1");
         await UserM.registerNewUser(name,email);
+        console.log("fuck2");
         var user=await this.initUserData();
+        console.log("fuck3");
         this.setState({user,isLogin: true});
 
     }
@@ -33,7 +35,6 @@ class App extends Component {
     initUserData = async ()=>{
         var UserM = new User(this.state.web3Wrapper);
         var user = await UserM.getUser();
-
         await window.sessionStorage.setItem("user", JSON.stringify(user));
         return user;
             
@@ -82,18 +83,18 @@ class App extends Component {
     
     render() {
         if (!this.state.isLogin)
-            return (
-                <div className="container" style={{ padding: "0px", maxWidth: "100%" }}>
-                    {/* <Preloader /> */}
-                    <Welcome logged={this.state.isLogin} register={this.register}/>
-                </div>
-            );
         return (
             <div className="container" style={{ padding: "0px", maxWidth: "100%" }}>
-                <Header logged={this.state.isLogin} />
-                <Wall user={this.state.user}/>
+                <Preloader />
+                <Welcome logged={this.state.isLogin} register={this.register}/>
             </div>
         );
+    return (
+        <div className="container" style={{ padding: "0px", maxWidth: "100%" }}>
+            <Header logged={this.state.isLogin} />
+            <Wall user={this.state.user}/>
+        </div>
+    );
     }
 }
 

@@ -4,11 +4,12 @@ class Post {
         this.web3Wrapper = web3Wrapper;
     }
 
-    async createPost(user_contract_address, text) {
+    createPost=async(user_contract_address, text)=>{
 
         await this.web3Wrapper.contracts["PostFactory"].methods.createPost(user_contract_address, text).send({
             from: this.web3Wrapper.accounts[0]
         })
+        console.log("fuck");
 
     }
 
@@ -33,6 +34,7 @@ class Post {
     async getPostData(Post, post_address) {
 
         var data = await Post.methods.getPost().call();
+        console.log(data);
         var postTimestamp = new Date(parseInt(data[3]) * 1000);
         var post = {
             address: post_address,

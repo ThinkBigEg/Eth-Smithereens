@@ -12,9 +12,11 @@ export default class FollowingCard extends Component {
             web3Wrapper:{}
         }
     }
-    followUser(id) {
-        console.log("ddddddd",id);
-    }
+    follow = async(user_contract_address)=>{
+        let user = JSON.parse(await window.sessionStorage.getItem("user"));
+        var UserM = new User(this.state.web3Wrapper);
+        await UserM.followNewUser(user.address,user_contract_address);
+      }
     componentDidMount=async()=>{
         var web3Wrapper = new Web3Wrapper();
         await web3Wrapper.initializeContracts();
@@ -38,7 +40,7 @@ export default class FollowingCard extends Component {
                                 </div>
                                 <div className="media-body">
                                     <h4 className="media-heading">{user.name}</h4>
-                                    <div onClick={this.followUser.bind(this,user.id)} className="btn btn-default btn-xs">
+                                    <div onClick={this.follow.bind(this,user.address)} className="btn btn-default btn-xs">
                                         +<span className="glyphicon glyphicon-user" />
                                         Follow
                                     </div>
