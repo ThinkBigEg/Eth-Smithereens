@@ -6,6 +6,7 @@ import FollowingCard from "./FollowingCard";
 import "./style.css";
 import Web3Wrapper from "../../utils/Web3Wrapper";
 import Post from "../../models/Post";
+import User from "../../models/User";
 export default class Wall extends Component {
     constructor(props) {
         super();
@@ -24,9 +25,7 @@ export default class Wall extends Component {
 
         let user = JSON.parse(await window.sessionStorage.getItem("user"));
         var PostM = new Post(this.state.web3Wrapper);
-        console.log(1);
         await PostM.createPost(user.address,this.state.postContent);       
-        console.log(2); 
         await this.getPosts();
     }
     changeComment(e) {
@@ -38,12 +37,15 @@ export default class Wall extends Component {
         let user = JSON.parse(await window.sessionStorage.getItem("user"));
         var PostM = new Post(this.state.web3Wrapper);
         await PostM.createComment(user.address,post_address,this.state.commentContent);
+        await this.getPosts();
     }
 
     getPosts=async ()=>{
-        var posts=[];
         var PostM = new Post(this.state.web3Wrapper);
-        posts=await PostM.getPostsOfUser(this.props.user.address);
+        var UserM = new User(this.state.web3Wrapper);
+        let user = JSON.parse(await window.sessionStorage.getItem("user"));
+        var following_addresses = await UserM.getFollowers(user.address);
+        var posts = await PostM.getNewsFeed(following_addresses);
         this.setState({posts});
     }
 
@@ -148,13 +150,13 @@ export default class Wall extends Component {
                                             <img alt="" className="media-object img-rounded" src="http://placehold.it/35x35" />
                                         </a>
                                         <div className="media-body">
-                                        <h4 className="media-heading">{post.ownerName}</h4>
+                                        <h4 className="media-heading">{this.props.user.name}</h4>
                                             <div className="">
                                                 <label className="control-label sr-only" htmlFor="inputSuccess5">
                                                     Hidden label
                                                 </label>
                                                 <input type="text" className="form-control" id="search2" onChange={this.changeComment.bind(this)} aria-describedby="search" />
-                                                <li onClick={()=>{this.submitComment()}}>
+                                                <li onClick={()=>{this.submitComment(post.address)}}>
                                                     <a href="#">
                                                         <span className="glyphicon glyphicon-share-alt" />
                                                     </a>

@@ -9,8 +9,6 @@ class Post {
         await this.web3Wrapper.contracts["PostFactory"].methods.createPost(user_contract_address, text).send({
             from: this.web3Wrapper.accounts[0]
         })
-        console.log("fuck");
-
     }
 
     async getPostsOfUser(user_contract_address) {

@@ -23,11 +23,8 @@ class App extends Component {
 
     register = async (name,email)=>{
         var UserM = new User(this.state.web3Wrapper);
-        console.log("fuck1");
         await UserM.registerNewUser(name,email);
-        console.log("fuck2");
         var user=await this.initUserData();
-        console.log("fuck3");
         this.setState({user,isLogin: true});
 
     }

@@ -1907,10 +1907,16 @@
       "links": {},
       "address": "0xF11e0c7d64DdAb95825504B8FB73F1885De07508",
       "transactionHash": "0x8f67889004017aedb2b9f6959ff62ec312ad2aa9207e13b3354812450792afcb"
+    },
+    "1557033903088": {
+      "events": {},
+      "links": {},
+      "address": "0xB7E1C0eDB50AAeAaaC046265d9F3498bC96eB1Eb",
+      "transactionHash": "0xc139f72718acef25bbc7d79d422e482975f28f9b3359cf3f0b2a175d2998367f"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2019-05-05T00:00:26.724Z",
+  "updatedAt": "2019-05-05T05:31:15.730Z",
   "devdoc": {
     "methods": {}
   },
