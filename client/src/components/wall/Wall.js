@@ -13,17 +13,13 @@ export default class Wall extends Component {
     changePost(e) {
         this.setState({ postContent: e.target.value });
     }
-    submitPost() {
-        //  here put your request
-    }
+    
     changeComment(e) {
         this.setState({ commentContent: e.target.value });
     }
-    submitComment(postId) {
-        //  here put your request
-    }
     render() {
         const { tweets_num, followers_num, following_num, trends } = this.props;
+        let votes = [1,2,3,4,5,6,7,8,9,10];
         return (
             <Fragment>
                 <ProfileCard tweets={tweets_num} followers={followers_num} following={following_num} trends={trends} />
@@ -40,7 +36,7 @@ export default class Wall extends Component {
                                             Hidden label
                                         </label>
                                         <input type="text" className="form-control" id="search2" onChange={this.changePost.bind(this)} aria-describedby="search" />
-                                        <li onClick={this.submitPost.bind(this)}>
+                                        <li onClick={()=>this.props.submitPost(this.state.postContent)}>
                                             <a href="#">
                                                 <span className="glyphicon glyphicon-share-alt" />
                                             </a>
@@ -59,28 +55,69 @@ export default class Wall extends Component {
                                         <h4 className="media-heading">{post.author}</h4>
                                         <p>{post.content}</p>
                                         <ul className="nav nav-pills nav-pills-custom">
-                                            <li>
+                                            <li onClick={()=>this.props.sharePost(post.id)}>
                                                 <a href="#">
-                                                    <span className="glyphicon glyphicon-share-alt" />
+                                                    <span class="glyphicon glyphicon-retweet"></span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
-                                                    <span className="glyphicon glyphicon-retweet" />
+                                                <a href="#" style={{cursor:"default"}}>
+                                                    avg votes: {post.avgVoting}
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
-                                                    <span className="glyphicon glyphicon-star" />
+                                                <a href="#" style={{cursor:"default"}}>
+                                                Vote:
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="#">
-                                                    <span className="glyphicon glyphicon-option-horizontal" />
-                                                </a>
-                                            </li>
+                                            {/* start voting */}
+                                            {votes.map((ele,i)=>(
+                                                <li key={i} onClick={()=>this.props.submitVotePost(post.id,ele)}>
+                                                    <a href="#">
+                                                        {ele}
+                                                    </a>
+                                                </li>
+                                            ))}
                                         </ul>
+                                        
+                                        
                                     </div>
+                                    {post.comments.map((comment,i)=>(
+                                        <div className="commentPost showPost" key={i}>
+                                            <div className="media">
+                                                <a className="media-left" href="#fake">
+                                                    <img alt="" className="media-object img-rounded" src="http://placehold.it/35x35" />
+                                                </a>
+                                                <div className="media-body">
+                                                    <h4 className="media-heading">{comment.author}</h4>
+                                                    <div className="">
+                                                        {comment.content}
+                                                    </div>
+                                                    <ul className="nav nav-pills nav-pills-custom">
+                                                        <li>
+                                                            <a href="#" style={{cursor:"default",paddingLeft:"0",paddingRight:"0"}}>
+                                                                avg votes: {comment.avgVoting}
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" style={{cursor:"default"}}>
+                                                            Vote:
+                                                            </a>
+                                                        </li>
+                                                        {/* start voting */}
+                                                        {votes.map((ele,i)=>(
+                                                            <li key={i}  onClick={()=>this.props.submitVoteComment(comment.id,ele)}>
+                                                                <a href="#">
+                                                                    {ele}
+                                                                </a>
+                                                            </li>
+                                                        ))}
+                                                        
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                                 <div className="commentPost">
                                     <div className="media">
@@ -93,7 +130,7 @@ export default class Wall extends Component {
                                                     Hidden label
                                                 </label>
                                                 <input type="text" className="form-control" id="search2" onChange={this.changeComment.bind(this)} aria-describedby="search" />
-                                                <li onClick={this.submitComment.bind(this,post.id)}>
+                                                <li onClick={()=>this.props.submitComment(post.id,this.state.commentContent)}>
                                                     <a href="#">
                                                         <span className="glyphicon glyphicon-share-alt" />
                                                     </a>

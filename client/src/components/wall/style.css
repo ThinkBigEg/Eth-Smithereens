@@ -3,7 +3,7 @@
     text-align: left;
 }
 .nav-pills-custom > li > a {
-    color: lightgrey;
+    /* color: lightgrey; */
 }
 
 .nav-pills-custom > li > a:focus,
@@ -57,3 +57,13 @@ div.panel-heading {
 .commentPost{
     margin-left: 80px;
 }
+.showPost{
+    /* margin-left: 0;
+    margin-bottom: 10px; */
+    margin-left: 80px;
+    margin-bottom: 10px;
+}
+.media-heading{
+    color: blue;
+}
+
