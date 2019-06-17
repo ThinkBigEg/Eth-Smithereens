@@ -8,6 +8,7 @@ export default class Wall extends Component {
         this.state = {
             postContent: "",
             commentContent:'',
+            file:"",
         };
     }
     changePost(e) {
@@ -16,6 +17,9 @@ export default class Wall extends Component {
     
     changeComment(e) {
         this.setState({ commentContent: e.target.value });
+    }
+    changeFile(e){
+        this.setState({ file: e.target.value });
     }
     render() {
         const { tweets_num, followers_num, following_num, trends } = this.props;
@@ -36,11 +40,23 @@ export default class Wall extends Component {
                                             Hidden label
                                         </label>
                                         <input type="text" className="form-control" id="search2" onChange={this.changePost.bind(this)} aria-describedby="search" />
-                                        <li onClick={()=>this.props.submitPost(this.state.postContent)}>
-                                            <a href="#">
-                                                <span className="glyphicon glyphicon-share-alt" />
-                                            </a>
-                                        </li>
+                                        <ul className="nav nav-pills nav-pills-custom">
+                                            <li onClick={()=>this.props.submitPost(this.state.postContent,this.state.file)}>
+                                                <a href="#">
+                                                    <span className="glyphicon glyphicon-share-alt" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" style={{cursor:"default"}}>
+                                                    
+                                                    <label style={{cursor:"pointer"}} onChange={this.changeFile.bind(this)}>
+                                                        <span class="glyphicon glyphicon-camera" />
+                                                        <input type="file" />
+                                                    </label>
+                                                    
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

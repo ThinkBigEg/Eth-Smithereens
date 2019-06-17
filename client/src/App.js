@@ -70,8 +70,8 @@ class App extends Component {
 
         this.setState({ posts, tweets_num, followers_num, following_num, trends });
     }
-    submitPost = (post_content) => {
-        console.log(this.state)
+    submitPost = (post_content,file) => {
+        console.log(post_content, file)
         let author = this.state.author_id;
         //  here put your request and get back the new posts list
         

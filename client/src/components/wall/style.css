@@ -67,3 +67,6 @@ div.panel-heading {
     color: blue;
 }
 
+input[type="file"] {
+    display: none;
+}
