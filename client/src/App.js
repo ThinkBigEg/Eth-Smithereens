@@ -1,73 +1,139 @@
 import React, { Component } from "react";
-import SimpleStorageContract from "./contracts/SimpleStorage.json";
-import getWeb3 from "./utils/getWeb3";
 
 import "./App.css";
-
+import Preloader from "./components/preloader/Preloader";
+import Header from "./components/header/Header";
+import Welcome from "./components/welcome/Welcome";
+import Wall from "./components/wall/Wall";
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
-
-  componentDidMount = async () => {
-    try {
-      // Get network provider and web3 instance.
-      const web3 = await getWeb3();
-
-      // Use web3 to get the user's accounts.
-      const accounts = await web3.eth.getAccounts();
-
-      // Get the contract instance.
-      const networkId = await web3.eth.net.getId();
-      const deployedNetwork = SimpleStorageContract.networks[networkId];
-      const instance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
-        deployedNetwork && deployedNetwork.address,
-      );
-
-      // Set web3, accounts, and contract to the state, and then proceed with an
-      // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }, this.runExample);
-    } catch (error) {
-      // Catch any errors for any of the above operations.
-      alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
-      );
-      console.error(error);
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLogin: true,
+            posts: [],
+            tweets_num: 0,
+            followers_num: 0,
+            following_num: 0,
+            trends: [],
+            loggedUser: {}, // it should be used in comments and posts but we will make it later
+            commenting_count: 0,
+            posting_count: 0,
+            votes_count:0,
+            shares_count:0,
+            author_id:1, // 4ofo b2a ento hat3mlo eh f el backend w n3dlha sa3tha (how will we get this id?)
+        };
     }
-  };
+    componentDidMount() {
+        let posts = [
+            {
+                id: "1",
+                content: "post number 1 test test",
+                author: "karim",
+                date: "12-10-1997",
+                authorImg: "http://placehold.it/64x64",
+                avgVoting:5,
+                comments: [
+                    {
+                        id: "1",
+                        author: "karim",
+                        date: "13-10-1997",
+                        content: "hello world 1",
+                        avgVoting:4,
+                    },
+                    {
+                        id: "2",
+                        author: "omar",
+                        date: "14-10-1997",
+                        content: "hello world 2",
+                        avgVoting:4,
+                    },
+                    {
+                        id: "3",
+                        author: "amr",
+                        date: "16-10-1997",
+                        content: "hello world 3",
+                        avgVoting:4,
+                    }
+                ]
+            },
+            { id: "2", content: "this is my second post test",avgVoting:5, author: "omar", date: "6-10-2007", authorImg: "http://placehold.it/64x64", comments: [] },
+            { id: "3", content: "this is not my post test brdo ;D",avgVoting:5, author: "amr", date: "2-1-1897", authorImg: "http://placehold.it/64x64", comments: [] },
+            { id: "4", content: "ngrb mara kman", author: "farouk", avgVoting:5,date: "30-12-1007", authorImg: "http://placehold.it/64x64", comments: [] }
+        ];
+        // get posts from your backend
 
-  runExample = async () => {
-    const { accounts, contract } = this.state;
+        let tweets_num = 1520,
+            followers_num = 2145,
+            following_num = 520,
+            trends = ["graduation of FCI 2019", "Sama el masry", "m4 3arf eh tany"];
+        // get the data also
 
-    // Stores a given value, 5 by default.
-    await contract.methods.set(5).send({ from: accounts[0] });
-
-    // Get the value from the contract to prove it worked.
-    const response = await contract.methods.get().call();
-
-    // Update state with the result.
-    this.setState({ storageValue: response });
-  };
-
-  render() {
-    if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
+        this.setState({ posts, tweets_num, followers_num, following_num, trends });
     }
-    return (
-      <div className="App">
-        <h1>Good to Go!</h1>
-        <p>Your Truffle Box is installed and ready.</p>
-        <h2>Smart Contract Example</h2>
-        <p>
-          If your contracts compiled and migrated successfully, below will show
-          a stored value of 5 (by default).
-        </p>
-        <p>
-          Try changing the value stored on <strong>line 40</strong> of App.js.
-        </p>
-        <div>The stored value is: {this.state.storageValue}</div>
-      </div>
-    );
-  }
+    submitPost = (post_content,file) => {
+        console.log(post_content, file)
+        let author = this.state.author_id;
+        //  here put your request and get back the new posts list
+        
+        //the next lines will be deleted:
+        console.log("post_content",post_content)
+        let posts = this.state.posts;
+        posts.push({ id: "5"/*this id will be taken from backend for sure*/, content: post_content, author: "farfasd aouk", date: "30-12-1007", authorImg: "http://placehold.it/64x64", comments: [] });
+        //end of deleted
+
+        //put the post in the state
+        this.setState({ posts, posting_count: this.state.posting_count + 1 });
+    }
+    submitComment = (post_id, comment_content) => {
+        let author = this.state.author_id;
+        console.log(post_id, comment_content)
+        //  here put your request and get back the new posts list
+
+        this.setState({ commenting_count: this.state.commenting_count + 1 });
+    }
+    submitVoteComment = (comment_id, vote_val) =>{
+        let author = this.state.author;
+
+        this.setState({ votes_count: this.state.votes_count + 1 });
+    }
+    submitVotePost = (comment_id, vote_val) => {
+        let author = this.state.author;
+        // your request call here
+
+        this.setState({ votes_count: this.state.votes_count + 1 });
+    }
+    sharePost = (post_id) => {
+        let author = this.state.author_id;
+
+        // create your request
+
+
+        // if you would like the post to appear immediatly just return the new posts with the request and put it to state 
+        this.setState({ shares_count: this.state.shares_count + 1 });
+    }
+    render() {
+        if (!this.state.isLogin)
+            return (
+                <div className="container" style={{ padding: "0px", maxWidth: "100%" }}>
+                    <Preloader />
+                    <Welcome logged={this.state.isLogin} />
+                </div>
+            );
+        return (
+            <div className="container" style={{ padding: "0px", maxWidth: "100%" }}>
+                <Header logged={this.state.isLogin} />
+                <Wall 
+                    submitPost = {this.submitPost}
+                    submitComment = {this.submitComment}
+                    posts={this.state.posts} 
+                    tweets_num={this.state.tweets_num} 
+                    followers_num={this.state.followers_num} 
+                    following_num={this.state.following_num} 
+                    trends={this.state.trends} 
+                />
+            </div>
+        );
+    }
 }
 
 export default App;
