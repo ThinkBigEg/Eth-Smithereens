@@ -24,7 +24,16 @@ const User = (props) => {
         <Link to={`/user/${user.address}`} >
           <div className="flex justify-between mb-1">
             <div>
-              <div className="font-bold text-black">{user.name}</div>
+              <div className="font-bold text-black" style = {{color: user.color}}>{user.name}
+                {user.star == 1 &&
+                  <span className="rate text-grey-dark hover:no-underline text-teal">
+                    <i className="fa fa-star fa-lg">
+                    </i>
+                  </span>
+
+                }
+              </div>
+              
               <div className="text-grey-dark">{user.email}</div>
             </div>
             <div>

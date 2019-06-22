@@ -44,7 +44,7 @@ class Profile extends Component {
         }
         var user = await UserModel.getUserData(this.props.match.params.address);
         var posts = await PostModel.getPostsOfUser(this.props.match.params.address);
-        this.setState({UserModel,PostModel,GroupModel,posts,user,isOwner,isLoading:false})
+        this.setState({UserModel,PostModel,GroupModel,posts,user,isOwner,isLoading:false, currentUser})
 
         setInterval(async ()=> {
              posts = await PostModel.getPostsOfUser(this.props.match.params.address);
@@ -82,7 +82,7 @@ class Profile extends Component {
                     <meta charSet="UTF-8" />
                     <title>BSN</title>
                     
-                    <Navbar user = {this.state.user}/>
+                    <Navbar user = {this.state.currentUser}/>
                     <div class="hero h-64 bg-cover h-50"></div>
                     <ProfileNavbar user={this.state.user} isOwner={this.state.isOwner} numOfPosts={this.state.posts.length}/>
 

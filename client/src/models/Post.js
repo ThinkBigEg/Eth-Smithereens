@@ -48,7 +48,10 @@ class Post {
                         text: originalPostData[3],
                         contentUrl: originalPostData[4],
                         timestamp: (new Date(parseInt(originalPostData[5]) * 1000)).toLocaleString(),
-                        unixTime: originalPostData[5]
+                        unixTime: originalPostData[5],
+                        ownerColor: this.getUserColor(originalPostData[7]),
+                        hasStar: originalPostData[7] >= 9 ? 1 : 0,
+                        ownerProfilePic:originalPostData[6]
                     }
 
 
@@ -65,6 +68,25 @@ class Post {
         return posts;
     };
 
+
+    getUserColor(rate) {
+        if (rate >= 9) {
+            return "#128c00";
+        } else if (rate >= 8) {
+            return "#00ff00"
+        } else if (rate >= 7) {
+            return "#0cff00"
+        } else if (rate >= 6) {
+            return "#e1e500"
+        } else if (rate >= 5) {
+            return "#f99a00"
+        } else if (rate == 0) {
+            return "#000"
+        } else {
+            return "#ff0000"
+        }
+    }
+
     async getPostData(Post, post_address,user) {
 
         var data = await Post.methods.getPost().call();
@@ -79,7 +101,9 @@ class Post {
             unixTime: data[4],
             ownerProfilePic: data[6],
             totalVotes: data[7],
-            totalShares: data[8]
+            totalShares: data[8],
+            ownerColor: this.getUserColor(data[9]),
+            hasStar: data[9] >= 9? 1:0
         };
 
         post["totalComments"] = 0;
@@ -134,7 +158,8 @@ class Post {
             text: data[2],
             timestamp: commentTimestamp.toLocaleString(),
             contentUrl:data[4],
-            ownerProfilePic:data[5]
+            ownerProfilePic:data[5],
+            ownerRate:data[6]
         }
         var vote = await Comment.methods.getUserVote(user.address).call();
         console.log(comment);

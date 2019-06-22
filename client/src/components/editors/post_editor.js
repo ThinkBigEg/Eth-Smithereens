@@ -52,7 +52,7 @@ class PostEditor extends Component {
                 <div className="w-7/8 p-3 pl-0">
                 <div className="flex justify-between">
                     <div>
-                    <span className="font-bold"><a href="#" className="text-black">{this.state.user.name}</a></span>
+                    <span className="font-bold"><a href="#" className="text-black" style = {{color: this.state.user.color}}>{this.state.user.name}</a></span>
                     <span className="text-grey-dark">·</span>
                     <span className="text-white">{this.state.user.email}</span>
                     </div>

@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom";
 class MiniProfile extends Component {
-  
+  componentDidMount() {
+    console.log(this.props.user.color)
+  }
+
   render() {
     
     return (
@@ -22,7 +25,14 @@ class MiniProfile extends Component {
             <div className="flex justify-between mb-1">
               <Link to={`/user/${this.props.user.address}`}>
                 <div className="mt-5">
-                  <a href="/user/${user.address}" className="font-bold text-black">{this.props.user.name}</a>
+                  <a href="/user/${user.address}" style={{color:this.props.user.color}} className="font-bold text-black">{this.props.user.name}</a>
+                  {this.props.user.star == 1 && 
+                    <span className="rate text-grey-dark hover:no-underline text-teal">
+                      <i className="fa fa-star fa-lg">
+                      </i>
+                    </span>
+
+                  }
                   <br />
                   <a href="/user/${user.address}" className="text-grey-dark">{this.props.user.email}</a>
                 </div>

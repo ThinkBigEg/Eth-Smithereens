@@ -16,7 +16,7 @@ contract SharedPost is Post{
         owner = User(user_contract_address);
     }
 
-    function getPost() public view returns(address,string memory,string memory, string memory,uint256,address[] memory, string memory,uint,uint){
+    function getPost() public view returns(address,string memory,string memory, string memory,uint256,address[] memory, string memory,uint,uint, uint){
         return (
         address(owner),
         owner.name(),
@@ -26,11 +26,12 @@ contract SharedPost is Post{
         comments,
         owner.profilePic(),
         totalVotes,
-        totalShares
+        totalShares,
+        owner.getRate()
             );
     }        
     
-    function getOriginalPost() public view returns(address, address, string memory, string memory, string memory, uint256, string memory){
+    function getOriginalPost() public view returns(address, address, string memory, string memory, string memory, uint256, string memory, uint){
         require(checkLastVote(),"the post have low average votes");
         return(
         address(originalPost),
@@ -39,7 +40,8 @@ contract SharedPost is Post{
         originalPost.text(),
         originalPost.contentUrl(),
         originalPost.timestamp(),
-        originalPost.owner().profilePic()
+        originalPost.owner().profilePic(),
+        originalPost.owner().getRate()
             );
     }
     

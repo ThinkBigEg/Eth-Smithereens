@@ -45,6 +45,8 @@ class GroupPage extends Component {
         var PostModel = new Post(web3Wrapper);
         var GroupModel = new Group(web3Wrapper);
         let user = JSON.parse(await window.sessionStorage.getItem("user"));
+        user = await UserModel.getUser();
+
         var group = await GroupModel.getGroup(this.props.match.params.address);
         var owner = await UserModel.getUserData(group[0]);
         var isMember = await GroupModel.checkMemberExists(this.props.match.params.address,user.address);
@@ -96,7 +98,7 @@ class GroupPage extends Component {
                     <meta charSet="UTF-8" />
                     <title>BSN</title>
                     
-                    <Navbar user={this.state.owner}/>
+                    <Navbar user={this.state.user}/>
                     {/* <div class="hero h-64 bg-cover h-50"></div>
                     <ProfileNavbar user={this.state.user}/> */}
 

@@ -17,7 +17,15 @@ class GroupInfo extends Component {
           {members.map((member)=>{
             return (
               <Link to={`/user/${member.address}`}>
-                <span ><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_follower01.jpg" alt="avatar" className="rounded-full h-12 w-12" /></span>
+                {
+                  member.profilePic != "null" && 
+                  <span ><img src={member.profilePic} alt="avatar" className="rounded-full h-12 w-12" /></span>
+
+                }{
+                  member.profilePic == "null" && 
+                  <span ><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_tailwind_logo.jpg" alt="avatar" className="rounded-full h-12 w-12" /></span>
+
+                }
               </Link>
             )
           })}

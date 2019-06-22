@@ -115,6 +115,14 @@ contract User {
         following++;
     }
 
+    function getRate() public view returns (uint) {
+         if(votes == 0 || totalVotes == 0 ){
+             return 0;
+         }else {
+             return votes/totalVotes;
+         }
+    }
+
 
 
 

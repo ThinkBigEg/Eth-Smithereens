@@ -44,6 +44,7 @@ class Home extends Component {
         following_addresses.push(user.address);
         var posts = await PostModel.getNewsFeed(following_addresses);
         var userPosts = await PostModel.getPostsOfUser(user.address);
+        user = await UserModel.getUser();
 
         var groups = await GroupModel.getGroups()
 
@@ -85,7 +86,7 @@ class Home extends Component {
                         <div className="container mx-auto flex flex-col lg:flex-row mt-3 text-sm leading-normal">
                             {/*---------Start Left Col--------*/}
                             <div className="w-full lg:w-1/4 pl-4 lg:pl-0 pr-6 mb-4">
-                                <MiniProfile user={this.state.user} followers={this.state.following_addresses} posts={this.state.userPosts} />
+                                <MiniProfile user={this.state.user}  posts={this.state.userPosts} />
 
                                 {/* <Trends/> */}
                                 <GroupList user={this.state.user} GroupModel={this.state.GroupModel} userGroups={false} />

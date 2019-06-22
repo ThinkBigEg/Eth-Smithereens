@@ -22,7 +22,7 @@ contract Comment {
     }
     
 
-    function getComment() public view returns(address,string memory,string memory,uint256, string memory, string memory ){
+    function getComment() public view returns(address,string memory,string memory,uint256, string memory, string memory, uint ){
         require(checkLastVote(),"the comment have low average votes");
         return (
         address(owner),
@@ -30,7 +30,8 @@ contract Comment {
         text,
         timestamp,
         contentUrl,
-        owner.profilePic()
+        owner.profilePic(),
+        owner.getRate()
             );
     }
 
