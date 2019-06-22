@@ -42,7 +42,7 @@ class UpdateInfoForm extends Component {
 
             submitToIPFS(buffer).then(async (res) => {
                 profilePic = "https://gateway.ipfs.io/ipfs/" + res[0].hash;
-                await this.state.UserModel.updateInfo(this.props.user.address, this.state.name, this.state.email, profilePic);
+                await this.state.UserModel.updateInfo(this.props.user.address, this.state.name, this.state.email, profilePic, this.state.about);
                 await this.getAndStoreUser();
 
             });

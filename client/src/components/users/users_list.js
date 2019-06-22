@@ -16,7 +16,6 @@ class Users_List extends Component {
   componentDidMount = async()=>{
 
     var users = await this.props.UserModel.getUsers();
-    console.log('usssers', users);
     let user = JSON.parse(await window.sessionStorage.getItem("user"));
     this.setState({isLoading:false,users, user});
   }

@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import 'font-awesome/css/font-awesome.min.css';
-import Trends from '../components/trends/trends';
 import PostEditor from '../components/editors/post_editor';
-import OriginalPost from '../components/posts/original_post';
-import Users_List from '../components/users/users_list';
-import SharedPost from '../components/posts/shared_post';
+
 import Footer from '../components/footer/footer';
 import Navbar from '../components/navbars/navbar';
 import ProfileInfo from '../components/profiles/profile_info';
@@ -45,7 +42,6 @@ class Profile extends Component {
             
             isOwner=true;
         }
-        console.log("fuck",isOwner);
         var user = await UserModel.getUserData(this.props.match.params.address);
         var posts = await PostModel.getPostsOfUser(this.props.match.params.address);
         this.setState({UserModel,PostModel,GroupModel,posts,user,isOwner,isLoading:false})

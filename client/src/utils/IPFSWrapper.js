@@ -8,7 +8,6 @@ export const convertToBuffer = async (reader) => {
 }
 
 export const submitToIPFS =  (buffer) => { 
-  console.log ('buffer from wrapper : ', buffer);
   let url  = 'https://gateway.ipfs.io/ipfs/';
   return ipfs.add(buffer)
   };
