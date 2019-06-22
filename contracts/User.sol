@@ -6,9 +6,12 @@ contract User {
     string public name;
     string public email;
     string public profilePic;
+    string public about;
     uint public votes =  0;
     uint public  totalVotes = 0;
     address[] public followers;
+    uint public following=0;
+    uint256 public timestamp;
     mapping(address => uint256) public followersIndex;
 
     constructor (address wallet_address,string memory user_name,string memory user_email) public {
@@ -16,10 +19,11 @@ contract User {
         name = user_name;
         email = user_email;
         profilePic = "null";
+        timestamp = now;
 
     }
 
-    function getData() public view returns(string memory, string memory,address,uint,uint, string memory){
+    function getData() public view returns(string memory, string memory,address,uint,uint, string memory,uint,string memory,uint256){
         if(votes == 0 || totalVotes == 0 ){
           return (
             name,
@@ -27,7 +31,10 @@ contract User {
             address(this),
             followers.length,
             0,
-            profilePic
+            profilePic,
+            following,
+            about,
+            timestamp
             );
         }
 
@@ -37,7 +44,10 @@ contract User {
             address(this),
             followers.length,
             votes/totalVotes,
-            profilePic
+            profilePic,
+            following,
+            about,
+            timestamp
             );
     }
 
@@ -52,17 +62,20 @@ contract User {
         email = new_mail;
     }
 
-    function updateInfo(string memory new_name,string memory new_mail, string memory profile_pic) public{
+    function updateInfo(string memory new_name,string memory new_mail, string memory profile_pic,string memory about_user) public{
         require(walletAddress==msg.sender,"You are not the owner of the contract");
         name = new_name;
         email = new_mail;
         profilePic = profile_pic;
+        about = about_user;
     }
 
     function follow(address userAddress) public {
         require(followersIndex[userAddress] == 0,"You have followed this user before");
         uint index = followers.push(userAddress);
         followersIndex[userAddress] = index;
+        User user = User(userAddress);
+        user.increamentFollowing();
     }
 
     function unfollow (address userAddress) public  {
@@ -96,6 +109,18 @@ contract User {
 
     function addTotalVotes() public {
         totalVotes++;
+    }
+
+    function increamentFollowing()public{
+        following++;
+    }
+
+    function getRate() public view returns (uint) {
+         if(votes == 0 || totalVotes == 0 ){
+             return 0;
+         }else {
+             return votes/totalVotes;
+         }
     }
 
 

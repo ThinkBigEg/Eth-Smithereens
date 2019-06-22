@@ -23,7 +23,7 @@ contract UserFactory {
     }
 
     //get User data from it's contract;
-    function getUser(address wallet_address) public view returns(string memory,string memory,address,uint, uint, string memory){
+    function getUser(address wallet_address) public view returns(string memory,string memory,address,uint, uint, string memory,uint,string memory,uint256){
         require(checkUserExists(wallet_address),"User doesn't exits");
         User user = User(users[usersIndexer[wallet_address]-1]);
         return user.getData();

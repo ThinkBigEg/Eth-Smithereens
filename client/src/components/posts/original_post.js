@@ -5,6 +5,7 @@ import CommentsList from '../comments/comments_list';
 import { Link } from "react-router-dom";
 import { PassThrough } from 'stream';
 import { convertToBuffer, submitToIPFS } from "../../utils/IPFSWrapper"
+import {UserModel} from "../../models/User"
 import Vote from './vote';
 class OriginalPost extends Component {
 
@@ -15,6 +16,11 @@ class OriginalPost extends Component {
       toggleThread: false,
       toggleComment: false,
     }
+  }
+
+
+  componentDidMount(){
+    console.log('log post', this.props.post.text, this.props.post);
   }
 
 
@@ -73,7 +79,15 @@ class OriginalPost extends Component {
             <div className="flex justify-between">
               <div>
                 <Link to={`/user/${this.props.post.ownerAddress}`} >
-                  <span className="font-bold"><a href="#" className="text-black">{this.props.post.ownerName}</a></span>
+                  <span className="font-bold" cool ><a href="#" style={{ color: this.props.post.ownerColor }} className="text-black">{this.props.post.ownerName}</a>
+                    {this.props.post.hasStar == 1 &&
+                      <span className="rate text-grey-dark hover:no-underline text-teal">
+                        <i className="fa fa-star fa-lg">
+                        </i>
+                      </span>
+
+                    }
+                  </span>
                   {/* <span className="text-grey-dark">@tailwindcss</span> */}
                 </Link>
                 <span className="text-grey-dark">·</span>

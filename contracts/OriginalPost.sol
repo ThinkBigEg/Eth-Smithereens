@@ -14,7 +14,7 @@ contract OriginalPost is Post {
         owner = User(user_contract_address);
     }
 
-    function getPost() public view returns(address,string memory,string memory,string memory,uint256,address[] memory,string memory,uint,uint){
+    function getPost() public view returns(address,string memory,string memory,string memory,uint256,address[] memory,string memory,uint,uint, uint){
         require(checkLastVote(),"the post have low average votes");
         return (
         address(owner),
@@ -25,7 +25,8 @@ contract OriginalPost is Post {
         comments,
         owner.profilePic(),
         totalVotes,
-        totalShares
+        totalShares,
+        owner.getRate()
             );
     }
 

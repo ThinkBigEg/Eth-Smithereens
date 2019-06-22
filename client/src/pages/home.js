@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import 'font-awesome/css/font-awesome.min.css';
 import MiniProfile from '../components/profiles/mini_profile';
-import Trends from '../components/trends/trends';
 import PostEditor from '../components/editors/post_editor';
-import OriginalPost from '../components/posts/original_post';
 import Users_List from '../components/users/users_list';
-import SharedPost from '../components/posts/shared_post_2';
 import Footer from '../components/footer/footer';
 import Navbar from '../components/navbars/navbar';
 
@@ -15,7 +12,6 @@ import Web3Wrapper from "../utils/Web3Wrapper"
 import User from "../models/User";
 import Post from "../models/Post";
 import Group from "../models/Group";
-import SharedPost2 from '../components/posts/shared_post';
 import PostLists from '../components/posts/posts_list';
 import GroupList from '../components/groups/group_list';
 import { convertToBuffer, submitToIPFS } from "../utils/IPFSWrapper"
@@ -42,13 +38,13 @@ class Home extends Component {
         await web3Wrapper.initializeContracts(initialize);
         var UserModel = new User(web3Wrapper);
         var PostModel = new Post(web3Wrapper);
-        console.log(PostModel);
         var GroupModel = new Group(web3Wrapper);
         let user = JSON.parse(await window.sessionStorage.getItem("user"));
         var following_addresses = await UserModel.getFollowers(user.address);
         following_addresses.push(user.address);
         var posts = await PostModel.getNewsFeed(following_addresses);
         var userPosts = await PostModel.getPostsOfUser(user.address);
+        user = await UserModel.getUser();
 
         var groups = await GroupModel.getGroups()
 
@@ -58,12 +54,6 @@ class Home extends Component {
             posts = await PostModel.getNewsFeed(following_addresses);
             this.setState({ posts });
         }, 2000);
-
-        // web3Wrapper.contracts["PostFactory"].events.posted((error, result)=>{
-        //     if (!error)
-        //         console.log(result);
-        // });
-
     }
 
     createPost = async (postContent, reader) => {
@@ -82,9 +72,6 @@ class Home extends Component {
             await this.state.PostModel.createPost(this.state.user.address, postContent, contentUrl);
         }
 
-
-
-
     }
 
     render() {
@@ -99,7 +86,7 @@ class Home extends Component {
                         <div className="container mx-auto flex flex-col lg:flex-row mt-3 text-sm leading-normal">
                             {/*---------Start Left Col--------*/}
                             <div className="w-full lg:w-1/4 pl-4 lg:pl-0 pr-6 mb-4">
-                                <MiniProfile user={this.state.user} followers={this.state.following_addresses} posts={this.state.userPosts} />
+                                <MiniProfile user={this.state.user}  posts={this.state.userPosts} />
 
                                 {/* <Trends/> */}
                                 <GroupList user={this.state.user} GroupModel={this.state.GroupModel} userGroups={false} />

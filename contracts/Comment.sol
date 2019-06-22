@@ -22,7 +22,7 @@ contract Comment {
     }
     
 
-    function getComment() public view returns(address,string memory,string memory,uint256, string memory, string memory ){
+    function getComment() public view returns(address,string memory,string memory,uint256, string memory, string memory, uint ){
         require(checkLastVote(),"the comment have low average votes");
         return (
         address(owner),
@@ -30,7 +30,8 @@ contract Comment {
         text,
         timestamp,
         contentUrl,
-        owner.profilePic()
+        owner.profilePic(),
+        owner.getRate()
             );
     }
 
@@ -71,7 +72,7 @@ contract Comment {
     }
 
     function checkLastVote() public view returns(bool){
-         if(now-lastVoteTime>120&&lastVoteTime!=0){
+         if(now-lastVoteTime>300&&lastVoteTime!=0){
              if(getAverageOfVotes()<5)
                 return false;
              else

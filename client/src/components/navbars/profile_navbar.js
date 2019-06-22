@@ -53,9 +53,9 @@ const ProfileNavbar = (props) => {
             </div>
             <div className="w-full lg:w-1/4 flex my-4 lg:my-0 lg:justify-end items-center">
                 <div className="mr-6">
-                {
+                {/* {
                     !props.isOwner&&<button className="bg-teal hover:bg-teal-dark text-white font-medium py-2 px-4 rounded-full">Following</button>
-                }
+                } */}
                 </div>
                 <div>
                 <a href="#" className="text-grey-dark"><i className="fa fa-ellipsis-v fa-lg" /></a>
