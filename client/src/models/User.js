@@ -18,7 +18,10 @@ class User {
             address: data[2],
             following:data[3],
             rate:data[4],
-            profilePic:data[5]
+            profilePic:data[5],
+            followers:data[6],
+            about: data[7],
+            timestamp: (new Date(parseInt(data[8]) * 1000)).toLocaleString()
           };
        
         
@@ -35,7 +38,10 @@ class User {
             address: data[2],
             following:data[3],
             rate:data[4],
-            profilePic:data[5]
+            profilePic:data[5],
+            followers:data[6],
+            about: data[7],
+            timestamp: (new Date(parseInt(data[8]) * 1000)).toLocaleString()
           };
 
         return userObj;
@@ -55,9 +61,9 @@ class User {
 
     };
 
-    async updateInfo(user_contract_address,name,email,profile_pic){
+    async updateInfo(user_contract_address,name,email,profile_pic,about){
         const User = await this.web3Wrapper.loadContract(user_contract_address, "User");
-        await User.methods.updateInfo(name, email, profile_pic).send({
+        await User.methods.updateInfo(name, email, profile_pic,about).send({
             from: this.web3Wrapper.accounts[0]
         });
     }
@@ -92,7 +98,7 @@ class User {
                 email:userData[1],
                 address:userData[2],
                 followers:userData[3],
-                profilePic: userData[5]
+                profilePic: userData[5],
             }
             users.push(user);
         }
