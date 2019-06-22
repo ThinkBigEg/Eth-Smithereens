@@ -71,7 +71,7 @@ contract Comment {
     }
 
     function checkLastVote() public view returns(bool){
-         if(now-lastVoteTime>120&&lastVoteTime!=0){
+         if(now-lastVoteTime>300&&lastVoteTime!=0){
              if(getAverageOfVotes()<5)
                 return false;
              else
