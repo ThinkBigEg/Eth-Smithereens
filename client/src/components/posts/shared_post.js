@@ -94,7 +94,10 @@ import { convertToBuffer, submitToIPFS } from "../../utils/IPFSWrapper"
                             <span className="text-grey-dark">·</span>
                             <span className="text-grey-dark">{this.props.post.originalPost.timestamp}</span>
                             <p className="mb-1">{this.props.post.originalPost.text}</p>
-                           
+                            <div className="mb-4">
+                                <p className="mb-4">{this.props.post.text}</p>
+                                <this.postContentUrl contentUrl={this.props.post.originalPost.contentUrl}/>
+                            </div>
                             {/* <div className="text-grey-dark">egghead.io</div> */}
                             </div>
                         </div>

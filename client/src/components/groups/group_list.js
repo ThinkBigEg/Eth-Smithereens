@@ -24,6 +24,10 @@ class GroupList extends Component {
     await this.props.GroupModel.join(group_contract_address, this.props.user.address);
   }
 
+  leaveGroup = async (group_contract_address) => {
+    await this.props.GroupModel.leave(group_contract_address, this.props.user.address);
+  }
+
   shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -58,11 +62,11 @@ class GroupList extends Component {
           });
           if (!arr.length >= 1 && this.props.userGroups == false) {
             return (
-              <GroupItem key={group[5]} group={group} joinGroup={this.joinGroup} />
+              <GroupItem key={group[5]} group={group} isMember={false} action={this.joinGroup} />
             )
           } else if (arr.length >= 1 && this.props.userGroups == true ){
             return (
-              <GroupItem key={group[5]} group={group} joinGroup={this.joinGroup} />
+              <GroupItem key={group[5]} group={group} isMember={true} action={this.leaveGroup} />
             )
           }
 

@@ -21,9 +21,9 @@ const GroupItem = (props) => {
         </Link>
         <div className="flex items-end justify-end">
           
-          <button onClick={() => { props.joinGroup(group[5]) }} className="bg-transparent text-xs hover:bg-teal text-teal font-semibold hover:text-white py-2 px-6 border border-teal hover:border-transparent rounded-full">
-            Join
-                </button>
+          <button onClick={() => { props.action(group[5]) }} className="bg-transparent text-xs hover:bg-teal text-teal font-semibold hover:text-white py-2 px-6 border border-teal hover:border-transparent rounded-full">
+            {props.isMember?"Leave":"Join"}
+          </button>
         </div>
       </div>
     </div>

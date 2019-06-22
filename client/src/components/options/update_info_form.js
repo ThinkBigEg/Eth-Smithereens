@@ -8,7 +8,8 @@ class UpdateInfoForm extends Component {
         this.state={
             name: this.props.user.name,
             email: this.props.user.email,
-            UserModel:this.props.UserModel
+            UserModel:this.props.UserModel,
+            about: this.props.user.about
         }
     }
 
@@ -19,6 +20,10 @@ class UpdateInfoForm extends Component {
     
     changeEmail(e){
         this.setState({email:e.target.value})
+    }
+
+    changeAbout(e){
+        this.setState({about:e.target.value})
     }
 
     captureFile = (event) => {
@@ -42,7 +47,7 @@ class UpdateInfoForm extends Component {
 
             });
         } else {
-            await this.state.UserModel.updateInfo(this.props.user.address, this.state.name, this.state.email, profilePic);
+            await this.state.UserModel.updateInfo(this.props.user.address, this.state.name, this.state.email, profilePic,this.state.about);
             await this.getAndStoreUser();
 
         }
@@ -69,7 +74,12 @@ class UpdateInfoForm extends Component {
                     </label>
                     <input onChange={this.changeEmail.bind(this)} value={this.state.email} className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email"/>
                 </div>
-
+                <div className="mb-3">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                        About
+                    </label>
+                    <textarea onChange={this.changeAbout.bind(this)} className="w-full h-20 bg-white-lighter appearance-none border-2 border-grey-lighter rounded w-full py-2 px-4 text-grey-darker leading-tight mt-3" cols={4} defaultValue={""} />
+                    </div>
                 <div class="mb-6 flex items-center justify-center">
                     <label class="w-40 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
                         <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

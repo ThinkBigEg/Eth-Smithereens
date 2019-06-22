@@ -18,7 +18,7 @@ import Post from "../models/Post";
 import Group from "../models/Group";
 import PostLists from '../components/posts/posts_list';
 import GroupInfo from '../components/groups/group_info';
-
+import { convertToBuffer, submitToIPFS } from "../utils/IPFSWrapper"
 class GroupPage extends Component {
 
     constructor(props) {
@@ -64,15 +64,27 @@ class GroupPage extends Component {
 
         setInterval(async ()=> {
             if(isMember){
+                postsAddresses=await GroupModel.getPosts(user.address,this.props.match.params.address);
                 posts = await PostModel.getPosts(postsAddresses);
                 this.setState({posts});
             }
         }, 2000);
     }
 
-    createPost = async(postContent)=> {
+    createPost = async(postContent,reader)=> {
+        let contentUrl = "null"
+        if (reader.readyState !== undefined) {
+            var buffer = await convertToBuffer(reader);
 
-        await this.state.GroupModel.createPost(this.props.match.params.address,this.state.user.address,postContent);
+            submitToIPFS(buffer).then(async (res) => {
+                contentUrl = "https://gateway.ipfs.io/ipfs/" + res[0].hash;
+                await this.state.GroupModel.createPost(this.props.match.params.address,this.state.user.address, postContent, contentUrl);
+
+            });
+
+        } else {
+        await this.state.GroupModel.createPost(this.props.match.params.address,this.state.user.address,postContent,contentUrl);
+        }
     }
 
     render() {
@@ -100,7 +112,7 @@ class GroupPage extends Component {
                     <div className="w-full lg:w-1/2 mb-4">
                         {this.state.isMember?
                             <div>
-                                <PostEditor createPost={this.createPost}/>
+                                <PostEditor createPost={this.createPost}  user={this.state.user}/>
                                 <PostLists posts={this.state.posts} PostModel={this.state.PostModel} user={this.state.user}/>
                             </div>
                             :

@@ -82,6 +82,7 @@ class Post {
             totalShares: data[8]
         };
 
+        post["totalComments"] = 0;
         if (data[5]) {
 
             
@@ -136,7 +137,8 @@ class Post {
             ownerProfilePic:data[5]
         }
         var vote = await Comment.methods.getUserVote(user.address).call();
-        Comment["vote"]=vote/2;
+        console.log(comment);
+        comment["vote"]=vote/2;
         return comment;
 
     }
