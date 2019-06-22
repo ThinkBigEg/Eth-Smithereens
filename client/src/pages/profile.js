@@ -38,13 +38,17 @@ class Profile extends Component {
         var GroupModel = new Group(web3Wrapper);
         let currentUser = JSON.parse(await window.sessionStorage.getItem("user"));
         var isOwner=false;
+        var isFollowing=false;
+        var following_addresses = await UserModel.getFollowers(currentUser.address);
         if(currentUser.address==this.props.match.params.address){
-            
             isOwner=true;
+        }else{
+            if(following_addresses.indexOf(this.props.match.params.address)!=-1)
+                isFollowing=true;
         }
         var user = await UserModel.getUserData(this.props.match.params.address);
         var posts = await PostModel.getPostsOfUser(this.props.match.params.address);
-        this.setState({UserModel,PostModel,GroupModel,posts,user,isOwner,isLoading:false, currentUser})
+        this.setState({UserModel,PostModel,GroupModel,posts,user,isOwner,isLoading:false, currentUser,isFollowing})
 
         setInterval(async ()=> {
              posts = await PostModel.getPostsOfUser(this.props.match.params.address);
@@ -68,11 +72,18 @@ class Profile extends Component {
             await this.state.PostModel.createPost(this.state.user.address, postContent, contentUrl);
         }
 
-
-
-
     }
 
+    follow = async(user_contract_address)=>{
+
+        await this.state.UserModel.followNewUser(this.state.currentUser.address,user_contract_address);
+    }
+    
+    unFollow = async(user_contract_address)=>{
+
+        await this.state.UserModel.unFollow(this.state.currentUser.address,user_contract_address);
+    }
+    
     render() {
         return (
             
@@ -84,7 +95,7 @@ class Profile extends Component {
                     
                     <Navbar user = {this.state.currentUser}/>
                     <div class="hero h-64 bg-cover h-50"></div>
-                    <ProfileNavbar user={this.state.user} isOwner={this.state.isOwner} numOfPosts={this.state.posts.length}/>
+                    <ProfileNavbar user={this.state.user} follow={this.follow} unFollow={this.unFollow} UserModel={this.state.UserModel} isFollowing={this.state.isFollowing} isOwner={this.state.isOwner} numOfPosts={this.state.posts.length}/>
 
                     <div className="container mx-auto flex flex-col lg:flex-row mt-3 text-sm leading-normal">
                     {/*---------Start Left Col--------*/}

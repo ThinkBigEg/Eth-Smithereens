@@ -103,6 +103,13 @@ class User {
 
     }
 
+    async unFollow(current_user_address, user_contract_address){
+        const User = await this.web3Wrapper.loadContract(current_user_address, "User");
+        await User.methods.unfollow(user_contract_address).send({
+            from: this.web3Wrapper.accounts[0]
+        });
+    }
+
     async getFollowers(user_contract_address) {
 
         const User = await this.web3Wrapper.loadContract(user_contract_address, "User")
