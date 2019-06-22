@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ProfileNavbar = (props) => {
-    
+
     return (
         <div className="bg-white shadow">
             <div className="container mx-auto flex flex-col lg:flex-row items-center lg:relative">
@@ -53,9 +53,12 @@ const ProfileNavbar = (props) => {
             </div>
             <div className="w-full lg:w-1/4 flex my-4 lg:my-0 lg:justify-end items-center">
                 <div className="mr-6">
-                {/* {
-                    !props.isOwner&&<button className="bg-teal hover:bg-teal-dark text-white font-medium py-2 px-4 rounded-full">Following</button>
-                } */}
+                {
+                    !props.isOwner&&props.isFollowing&&<button onClick={()=>{props.unFollow(props.user.address)}} className="bg-teal hover:bg-teal-dark text-white font-medium py-2 px-4 rounded-full">UnFollow</button>
+                }
+                {
+                    !props.isOwner&&!props.isFollowing&&<button onClick={()=>{props.follow(props.user.address)}} className="bg-teal hover:bg-teal-dark text-white font-medium py-2 px-4 rounded-full">Follow</button>
+                }
                 </div>
                 <div>
                 <a href="#" className="text-grey-dark"><i className="fa fa-ellipsis-v fa-lg" /></a>

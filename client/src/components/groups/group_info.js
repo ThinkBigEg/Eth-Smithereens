@@ -11,7 +11,7 @@ class GroupInfo extends Component {
           {group[2]}
         </div>
         <div className="mb-2">Creator: <Link to={`/user/${owner.address}`} ><span className="text-teal no-underline hover:underline">{owner.name}</span></Link></div>
-        <div className="mb-4"><i className="fa fa-calendar fa-lg text-grey-darker mr-1" /><a href="#" className="text-teal no-underline hover:underline">August 2017</a></div>
+        {/* <div className="mb-4"><i className="fa fa-calendar fa-lg text-grey-darker mr-1" /><a href="#" className="text-teal no-underline hover:underline">August 2017</a></div> */}
         <div className="mb-4"><i className="fa fa-user fa-lg text-grey-dark mr-1" /><a href="#" className="text-teal no-underline hover:underline">{group[5]} Members</a></div>
         <div className="mb-4">
           {members.map((member)=>{
