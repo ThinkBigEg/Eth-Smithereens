@@ -31,7 +31,7 @@ with 1 being “I don‟t agree” and 10 being “I completely agree”.
   </p>
   </li>
   <li>
-    <h4> How to use </h4>
+    <h4> How to use? </h4>
     <ul> 
       <li> <p> If you like to use B-Smithereens as a normal user a deployed version will be available very <b>Soon</b></p>
       </li> <li> 
@@ -73,7 +73,7 @@ with 1 being “I don‟t agree” and 10 being “I completely agree”.
     </ol>
   </li>
 
-  <li> <h4>Feature work</h4 >
+  <li> <h4>Future Work</h4 >
     <ol> 
     <li> Fully decentralized <b>Notification System</b> for users activities </li>
     <li> A regulation method for groups content </li>
@@ -82,7 +82,7 @@ with 1 being “I don‟t agree” and 10 being “I completely agree”.
     <li> Post or comment may Include Hashtags </li>
     <li> Latest 5 Active Trends </li>
     <li> Full Text Search for users, posts, groups</li>
-    <li> a user able to mention or tag any other user in a comment or post</li>
+    <li> Ability to mention or tag any other user in a comment or post</li>
     </ol>
   </li>
 
