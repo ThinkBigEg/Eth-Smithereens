@@ -12,7 +12,9 @@ class Group {
         for (var i = 0; i < groupsAddresses.length; i++) {
 
             var group = await this.getGroup(groupsAddresses[i]);
-            group[5]=groupsAddresses[i];
+            group[6]=group[5];
+            group[5] = groupsAddresses[i];
+            
             groups.push(group);
         }
 

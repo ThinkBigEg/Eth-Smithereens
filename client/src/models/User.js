@@ -135,7 +135,6 @@ class User {
             }
             users.push(user);
         }
-        console.log('users', users)
         return users;
     }
     

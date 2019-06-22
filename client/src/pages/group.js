@@ -52,6 +52,9 @@ class GroupPage extends Component {
         var isMember = await GroupModel.checkMemberExists(this.props.match.params.address,user.address);
         var members=[];
         for(var i=0;i<group[4].length;i++){
+            if (group[4][i] = "0x0000000000000000000000000000000000000000")
+                continue;
+            
             var member = await UserModel.getUser(group[4][i]);
             members.push(member);
         }

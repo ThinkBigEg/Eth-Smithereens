@@ -19,9 +19,6 @@ class OriginalPost extends Component {
   }
 
 
-  componentDidMount(){
-    console.log('log post', this.props.post.text, this.props.post);
-  }
 
 
   changeToggleThread = () => {
