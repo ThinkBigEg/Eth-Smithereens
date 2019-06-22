@@ -97,7 +97,7 @@ class Profile extends Component {
                     {/*---------Start Center Col--------*/}
                     <div className="w-full lg:w-1/2 mb-4">
                         {this.state.isOwner&&<PostEditor createPost={this.createPost}  user={this.state.user}/>}
-                        <PostLists posts={this.state.posts} PostModel={this.state.PostModel} user={this.state.user}/>
+                        <PostLists posts={this.state.posts} PostModel={this.state.PostModel} user={this.state.currentUser}/>
                     </div>
                     {/*---------End Center Col--------*/}
 

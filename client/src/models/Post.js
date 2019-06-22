@@ -147,7 +147,6 @@ class Post {
     }
 
     async getCommentData(comment_address,user) {
-        console.log('add', comment_address.address)
         const Comment = await this.web3Wrapper.loadContract(comment_address, "Comment");
         var data = await Comment.methods.getComment().call();
         var commentTimestamp = new Date(parseInt(data[3]) * 1000);
@@ -162,7 +161,6 @@ class Post {
             ownerRate:data[6]
         }
         var vote = await Comment.methods.getUserVote(user.address).call();
-        console.log(comment);
         comment["vote"]=vote/2;
         return comment;
 

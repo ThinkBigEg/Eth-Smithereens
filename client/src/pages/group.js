@@ -45,7 +45,7 @@ class GroupPage extends Component {
         var PostModel = new Post(web3Wrapper);
         var GroupModel = new Group(web3Wrapper);
         let user = JSON.parse(await window.sessionStorage.getItem("user"));
-        user = await UserModel.getUser();
+        //user = await UserModel.getUser();
 
         var group = await GroupModel.getGroup(this.props.match.params.address);
         var owner = await UserModel.getUserData(group[0]);

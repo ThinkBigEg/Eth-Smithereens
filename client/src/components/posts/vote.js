@@ -15,6 +15,7 @@ class Vote extends Component {
 
 
     vote = async (value) => {
+        
         this.setState({ value });
         this.props.vote(this.props.address, value);
     }
