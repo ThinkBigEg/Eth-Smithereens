@@ -52,7 +52,9 @@ class Home extends Component {
 
         setInterval(async () => {
             posts = await PostModel.getNewsFeed(following_addresses);
-            this.setState({ posts });
+            user = await UserModel.getUser();
+
+            this.setState({ posts, user });
         }, 2000);
     }
 

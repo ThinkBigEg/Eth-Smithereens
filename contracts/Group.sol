@@ -10,7 +10,7 @@ contract Group {
     address[] public admins;
     mapping(address => uint256) public adminsIndex;
     address[] users;
-
+    uint public members = 0;
     mapping(address  => uint256) public usersIndex; 
     address[] posts; 
     
@@ -19,6 +19,7 @@ contract Group {
         description = initialDescription;
         owner = User(userContractAddress);
         usersIndex[userContractAddress] = users.push(userContractAddress);
+        members++;
     }
 
     function addAdmin(address userAddress) public {
@@ -41,6 +42,7 @@ contract Group {
         require(usersIndex[userAddress] == 0, "You Already A member of this group");
         uint index = users.push(userAddress);
         usersIndex[userAddress] = index;
+        members++;
     }
 
 
@@ -49,12 +51,14 @@ contract Group {
         require(usersIndex[userAddress] != 0, "user is not a member of the group");
         delete users[usersIndex[userAddress]-1];
         usersIndex[userAddress] = 0;
+        members--;
     }
 
     function leave (address userContractAddress) public {
         require(usersIndex[userContractAddress] != 0, "You Are Not Member of the Group");
         delete users[usersIndex[userContractAddress]-1];
         usersIndex[userContractAddress] = 0;
+        members--;
     }
 
     function getUsers() public view returns (address[] memory) {
@@ -66,13 +70,14 @@ contract Group {
     }
 
     
-    function getGroup() public view returns(address,string memory,string memory,address[] memory,address[] memory){
+    function getGroup() public view returns(address,string memory,string memory,address[] memory,address[] memory, uint){
         return (
         address(owner),
         title,
         description,
         admins,
-        users
+        users,
+        members
             );
     }
 

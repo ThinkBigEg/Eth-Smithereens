@@ -12,7 +12,7 @@ const GroupItem = (props) => {
           <div className="flex justify-between">
             <div>
               <div className="text-teal font-bold">{group[1]}  </div>
-              <small>{group[4].length} - Members</small>
+              <small>{group[6]} - Members</small>
             </div>
             {/* <div>
                       <div  className="text-grey hover:text-grey-dark"><i className="fa fa-times" /></div>

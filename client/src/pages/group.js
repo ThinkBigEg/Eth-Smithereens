@@ -45,13 +45,16 @@ class GroupPage extends Component {
         var PostModel = new Post(web3Wrapper);
         var GroupModel = new Group(web3Wrapper);
         let user = JSON.parse(await window.sessionStorage.getItem("user"));
-        user = await UserModel.getUser();
+        //user = await UserModel.getUser();
 
         var group = await GroupModel.getGroup(this.props.match.params.address);
         var owner = await UserModel.getUserData(group[0]);
         var isMember = await GroupModel.checkMemberExists(this.props.match.params.address,user.address);
         var members=[];
         for(var i=0;i<group[4].length;i++){
+            if (group[4][i] = "0x0000000000000000000000000000000000000000")
+                continue;
+            
             var member = await UserModel.getUser(group[4][i]);
             members.push(member);
         }

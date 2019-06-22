@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom";
 class MiniProfile extends Component {
-  componentDidMount() {
-    console.log(this.props.user.color)
-  }
+
 
   render() {
     
